@@ -1,0 +1,88 @@
+.footer-container {
+  /* height: 50vh; */
+  background: #161517;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+  /* box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+    0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%); */
+  padding: 4%;
+  /* position: relative; */
+  /* height: 500px; */
+  /* border: 2px solid white; */
+}
+.fitTown-container {
+  text-align: left;
+  margin-top: 5%;
+}
+.logo {
+  font-size: 65px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 5%;
+}
+.logo > span {
+  color: #f5634b;
+  /* color: #f5472d; */
+}
+.gym-description {
+  color: white;
+  font-size: 18px;
+  line-height: 1.5;
+  /* border: 1px solid yellow; */
+}
+.footer-links-container {
+  text-align: left;
+  /* border: 2px solid wheat; */
+  /* padding: 0 0 0 20%; */
+}
+.footer-links-heading {
+  color: #fff;
+  font-size: 26px;
+  font-weight: 600;
+  /* border: 1px solid green; */
+}
+.quicklinks {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  line-height: 1.8;
+  font-size: 18px;
+}
+.quicklinks > a:hover {
+  cursor: pointer;
+  color: #f5634b;
+}
+.location-address {
+  font-size: 18px;
+  color: #fff;
+  /* border: 1px solid green; */
+  width: 230px;
+  text-transform: capitalize;
+}
+.contact-details-container {
+  display: flex;
+  /* border: 1px solid yellow; */
+  flex-direction: column;
+  width: 230px;
+}
+.contact-details {
+  display: flex;
+  align-items: center;
+}
+.contact-details-container > .contact-details > :first-child {
+  margin-right: 5%;
+}
+.contact-details > :last-child {
+  color: #fff;
+  font-size: 18px;
+}
+.divider {
+  padding-top: 5%;
+  margin-bottom: -4%;
+}
+.divider > p {
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+}
