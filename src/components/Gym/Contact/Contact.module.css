@@ -3,4 +3,31 @@
 }
 .textarea {
   width: 98%;
+  /* margin-top: 5px; */
+}
+h2 {
+  letter-spacing: 0.5px;
+}
+.headings {
+  color: #f5472d;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.details {
+  font-size: 18.5px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.location {
+  text-transform: capitalize;
+}
+ul {
+  display: inline;
+}
+ul > li {
+  list-style: none;
+  font-size: 18.5px;
+  color: #fff;
+  line-height: 1.8;
 }

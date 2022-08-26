@@ -5,6 +5,7 @@ const InputControl = ({ name, onChange, label }) => {
   const inlineStyles = {
     inputStyles: {
       width: "100%",
+      marginBottom: "10px",
     },
   };
   return (

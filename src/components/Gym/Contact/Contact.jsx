@@ -64,7 +64,7 @@ const Contact = () => {
           }}
         >
           <Grid item xs={12} lg={4} sx={{ border: "1px solid black" }}>
-            <h3>Contact Us</h3>
+            <h2>Contact Us</h2>
             <div>
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={1} sx={{ ...inlineStyles.gridStyles }}>
@@ -107,9 +107,38 @@ const Contact = () => {
               </form>
             </div>
           </Grid>
-          <Grid item xs={12} lg={4} sx={{ border: "1px solid black" }}>
-            
+
+          <Grid
+            item
+            xs={12}
+            lg={4}
+            sx={{ backgroundColor: "rgb(41,45,51)", border: "1px solid black" }}
+          >
+            <Grid container spacing={2} sx={{ padding: "5% 0" }}>
+              <Grid item xs={12}>
+                <div className={styles.headings}>Call Us</div>
+                <p className={styles.details}>+91 9099856568</p>
+                <p className={styles.details}>+91 9099856844</p>
+              </Grid>
+              <Grid item xs={12}>
+                <div className={styles.headings}>Location</div>
+                <p className={`${styles.details} ${styles.location}`}>
+                  401, sheetal varsha mahavir business park, Gujarat 380022
+                </p>
+              </Grid>
+              <Grid item xs={12}>
+                <div className={styles.headings}>Top Services</div>
+                <ul>
+                  <li>Muscle Building</li>
+                  <li>Weighlifting</li>
+                  <li>Cardio</li>
+                  <li>Zumba</li>
+                  <li>Boxing</li>
+                </ul>
+              </Grid>
+            </Grid>
           </Grid>
+
           <Grid item xs={12} lg={4} sx={{ border: "1px solid black" }}>
             HEllo Text
           </Grid>

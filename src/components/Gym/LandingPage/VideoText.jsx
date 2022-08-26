@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/system";
-import styles from "./MainIntro.module.css";
+import styles from "./VideoText.module.css";
 
 // const VideoComponent = styled("video")({
 //   width: "100%",
@@ -40,7 +40,7 @@ import styles from "./MainIntro.module.css";
 //   },
 // });
 
-const MainIntro = () => {
+const VideoText = () => {
   const [textStatus, setTextStatus] = useState(false);
   const [animation, setAnimation] = useState(false);
 
@@ -101,4 +101,4 @@ const MainIntro = () => {
   );
 };
 
-export default MainIntro;
+export default VideoText;
