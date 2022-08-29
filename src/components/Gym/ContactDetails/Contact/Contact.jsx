@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import { Button, Grid, Paper, TextareaAutosize } from "@mui/material";
 import { fontWeight } from "@mui/system";
 import React, { useState } from "react";
-import InputControl from "../../UI/InputBox/InputControl";
+import InputControl from "../../../UI/InputBox/InputControl";
+import Map from "../Map/Map";
 import styles from "./Contact.module.css";
 
 const inlineStyles = {
@@ -140,7 +141,7 @@ const Contact = () => {
           </Grid>
 
           <Grid item xs={12} lg={4} sx={{ border: "1px solid black" }}>
-            HEllo Text
+            <Map />
           </Grid>
         </Grid>
       </Paper>
