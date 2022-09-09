@@ -27,7 +27,7 @@ const Footer = () => {
             <div className={styles["gym-description"]}>
               Your Ultimate Fitness Center, The place where you can test the
               best Version of yourself, Step up and gear yourself towards your
-              Fitness Journey.#UnleshTheBeastInYou
+              Fitness Journey. <span>#UnleshTheBeastInYou</span>
             </div>
           </div>
         </Grid>
