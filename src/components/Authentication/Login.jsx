@@ -1,13 +1,19 @@
+import { Grid } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
+import { Form } from "../Hooks/useForm";
 import { auth } from "../Services/firebase";
+import ButtonControl from "../UI/Button/ButtonControl";
+import GridContainerControl from "../UI/Grid/GridContainerControl";
+import InputControl from "../UI/InputBox/InputControl";
+import styles from "./Login.module.css";
 
 const loginInitialValues = {
   loginEmail: "",
   loginPassword: "",
 };
 
-const Login = () => {
+const Login = ({ onhandleMemberRegistration }) => {
   const [loginCredential, setLoginCredential] = useState(loginInitialValues);
   const { loginEmail: email, loginPassword: password } = loginCredential;
 
@@ -39,27 +45,39 @@ const Login = () => {
   console.log("loginInitialValues:", loginInitialValues);
 
   return (
-    <div>
-      <form onSubmit={handleLoginOperation}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="loginEmail"
-          onChange={handleLoginUserOnChange}
-          // value={fullName}
-        />
+    <section className={styles["login-container"]}>
+      <div id={styles.slider} className={styles["slide-in-content"]}>
+        <Form onSubmit={handleLoginOperation}>
+          <GridContainerControl>
+            <Grid item xs={8}>
+              <InputControl
+                label="Your Email"
+                type="email"
+                name="loginEmail"
+                onChange={handleLoginUserOnChange}
+              />
+            </Grid>
 
-        <label htmlFor="">Password</label>
-        <input
-          type="text"
-          name="loginPassword"
-          onChange={handleLoginUserOnChange}
-          // value={fullName}
-        />
+            <Grid item xs={8}>
+              <InputControl
+                label="Your Password"
+                type="password"
+                name="loginPassword"
+                onChange={handleLoginUserOnChange}
+              />
+            </Grid>
 
-        <input type="submit" value="Login" />
-      </form>
-    </div>
+            <Grid item xs={8}>
+              <ButtonControl text="Login" />
+              <p>
+                <a href="">Not a member yet?</a>
+                <span onClick={onhandleMemberRegistration}> Register</span>
+              </p>
+            </Grid>
+          </GridContainerControl>
+        </Form>
+      </div>
+    </section>
   );
 };
 

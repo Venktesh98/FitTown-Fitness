@@ -1,7 +1,20 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import InputControl from "../UI/InputBox/InputControl";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import Grid from "@mui/material/Grid";
+import styles from "./Register.module.css";
+import ButtonControl from "../UI/Button/ButtonControl";
+import { Form } from "../Hooks/useForm";
+
+// Firebase Imports
 import { db, auth } from "../Services/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import GridContainerControl from "../UI/Grid/GridContainerControl";
 
 const userInitialValues = {
   fullName: "",
@@ -11,7 +24,8 @@ const userInitialValues = {
   confirmPassword: "",
 };
 
-const Register = () => {
+const Register = ({ onToggleAnimation }) => {
+  console.log("In Regfister", onToggleAnimation);
   const [userCredentials, setUserCredentials] = useState(userInitialValues);
   const [error, setError] = useState("");
 
@@ -47,6 +61,7 @@ const Register = () => {
     return checkPwdIsValid;
   };
   console.log("Error:", error);
+  console.log("onchamge:", userCredentials);
 
   // Registering the User.
   const registerUser = async () => {
@@ -81,72 +96,89 @@ const Register = () => {
     event.preventDefault();
     setError("");
     registerUser();
-    // loggingUser();
-
-    // const collectionRef = collection(db, "users");
-    // const payload = { name: "vgs", gender: "male" };
-    // let addedData = await addDoc(collectionRef, payload);
-    // console.log("addedData:", addedData);
   };
 
   return (
-    <div>
-      <form onSubmit={handleUserOperations}>
-        <label htmlFor="">Full Name</label>
-        <input
-          type="text"
-          name="fullName"
-          onChange={handleUserOnChange}
-          // value={fullName}
-        />
+    <section className={styles["registration-container"]}>
+      <div
+        className={
+          onToggleAnimation === true ? styles["slide-in-content"] : undefined
+        }
+        id={styles.slider}
+      >
+        <Form onSubmit={handleUserOperations}>
+          <GridContainerControl>
+            <Grid item xs={8}>
+              <InputControl
+                label="Your Full Name"
+                type="text"
+                name="fullName"
+                onChange={handleUserOnChange}
+              />
+            </Grid>
 
-        <label htmlFor="">Gender</label>
+            <Grid item xs={8}>
+              <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label">
+                  Gender
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  defaultValue="female"
+                  name="radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                    name="gender"
+                    onChange={handleUserOnChange}
+                  />
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                    name="gender"
+                    onChange={handleUserOnChange}
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
 
-        <label htmlFor="">Male</label>
-        <input
-          type="radio"
-          id="male"
-          name="gender"
-          onChange={handleUserOnChange}
-          value="Male"
-        />
+            <Grid item xs={8}>
+              <InputControl
+                label="Your Email"
+                type="email"
+                name="email"
+                onChange={handleUserOnChange}
+              />
+            </Grid>
 
-        <label htmlFor="female">Female</label>
-        <input
-          type="radio"
-          id="female"
-          name="gender"
-          onChange={handleUserOnChange}
-          value="Female"
-        />
+            <Grid item xs={8}>
+              <InputControl
+                label="Your Password"
+                type="password"
+                name="password"
+                onChange={handleUserOnChange}
+              />
+            </Grid>
 
-        <label htmlFor="">Email</label>
-        <input
-          type="email"
-          name="email"
-          onChange={handleUserOnChange}
-          // value={email}
-        />
+            <Grid item xs={8}>
+              <InputControl
+                label="Your Confirm Password"
+                type="password"
+                name="confirmPassword"
+                onChange={handleUserOnChange}
+              />
+            </Grid>
 
-        <label htmlFor="">Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={handleUserOnChange}
-          // value={password}
-        />
-
-        <label htmlFor="">Confirm Password</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          onChange={handleUserOnChange}
-          // value={confirmPassword}
-        />
-
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+            <Grid item xs={8}>
+              <ButtonControl text="Register" />
+            </Grid>
+          </GridContainerControl>
+        </Form>
+      </div>
+    </section>
   );
 };
 
