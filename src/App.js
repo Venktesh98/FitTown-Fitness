@@ -7,8 +7,6 @@ import Gallery from "./components/Gym/Gallery/Gallery";
 import Trainers from "./components/Gym/Trainers/Trainers";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { useEffect, useState } from "react";
-import Register from "./components/Authentication/Register";
-import Login from "./components/Authentication/Login";
 import CustomizedDialogs from "./components/UI/Dialog/DialogControl";
 
 function App() {
@@ -34,8 +32,8 @@ function App() {
       {/* <Navbar /> */}
       {/* <Register /> */}
       {/* <Login /> */}
-      <CustomizedDialogs />
       {/* <VideoText /> */}
+      <CustomizedDialogs />
       {/* <Trainers /> */}
       {/* <Gallery /> */}
       {/* <Contact /> */}

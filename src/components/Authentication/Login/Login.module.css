@@ -1,0 +1,82 @@
+.login-container {
+  width: 100%;
+  margin: 10% 16.5% 0;
+  /* display: flex; */
+  /* border: 2px solid black; */
+}
+
+#slider {
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+}
+
+.slide-in-content {
+  animation: slide-in 2s forwards;
+  -webkit-animation: slide-in 2s forwards;
+}
+
+@keyframes slide-in {
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+
+.sign-in-with-google {
+  position: relative;
+  width: 435px;
+  height: 152px;
+  margin: 0 0 0 -16%;
+}
+.sign-in-with-google > img {
+  /* border: 2px solid black; */
+  position: absolute;
+  margin-top: -8%;
+  width: 100%;
+  height: 100%;
+  /* text-align: center; */
+  cursor: pointer;
+  z-index: -1;
+}
+
+.auth-links {
+  /* border: 2px solid #f5472d; */
+  position: relative;
+  top: -30%;
+}
+
+.forget-password {
+  top: 15%;
+  display: flex;
+  justify-content: center;
+}
+
+.register-member {
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+}
+
+.register-member > a {
+  text-decoration: none;
+  font-size: 18px;
+  color: purple;
+}
+
+.register-member > span {
+  font-size: 18px;
+  color: #f5472d;
+  cursor: pointer;
+  margin-left: 2%;
+}
+
+.register-member > span::after {
+  content: " now";
+  font-size: 18px;
+  color: purple;
+}

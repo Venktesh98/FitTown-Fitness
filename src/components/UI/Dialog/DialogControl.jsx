@@ -5,17 +5,17 @@ import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
-import Register from "../../Authentication/Register";
 import { Box } from "@mui/system";
-import { Divider } from "@mui/material";
-import Login from "../../Authentication/Login";
+import { Collapse, Divider } from "@mui/material";
 import { useState } from "react";
 import { useCallback } from "react";
+
+import Login from "../../Authentication/Login/Login";
+import ResetPassword from "../../Authentication/ResetPassword/ResetPassword";
+import Register from "../../Authentication/Register/Register";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -24,6 +24,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
+  // "& .MuiPaper-root-MuiDialog-paper": {
+  //   maxHeight: "100%",
+  // },
 }));
 
 const BootstrapDialogTitle = (props) => {
@@ -58,6 +61,7 @@ BootstrapDialogTitle.propTypes = {
 export default function CustomizedDialogs() {
   const [open, setOpen] = useState(false);
   const [memberAuth, setMemberAuth] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
 
   useEffect(() => {
     setOpen(true);
@@ -72,11 +76,17 @@ export default function CustomizedDialogs() {
 
   const handleMemberRegistration = useCallback((event) => {
     event.preventDefault();
-    console.log("In member");
     setMemberAuth(true);
+    setResetPassword(false);
   });
 
+  const handleResetPassword = (event) => {
+    event.preventDefault();
+    setResetPassword(true);
+  };
+
   console.log("memberAuth:", memberAuth);
+  console.log("resetPassword:", resetPassword);
 
   return (
     <div>
@@ -84,23 +94,50 @@ export default function CustomizedDialogs() {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        PaperProps={{
+          sx: {
+            width: { xs: "100%", sm: "50%", md: "45%", lg: "35%" },
+            // backgroundColor: { xs: "red", md: "yellow" },
+            maxHeight: "100%",
+          },
+        }}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
           onClose={handleClose}
         >
-          {memberAuth ? "Register" : "Login"}
+          {memberAuth
+            ? "Register"
+            : !memberAuth && !resetPassword
+            ? "Login"
+            : resetPassword
+            ? "Reset Password"
+            : undefined}
         </BootstrapDialogTitle>
         <Divider />
-        <DialogContent sx={{ overflow: "hidden", marginBottom: "5%" }}>
-          <Box>
-            {memberAuth ? (
-              <Register onToggleAnimation={memberAuth} />
-            ) : (
-              <Login onhandleMemberRegistration={handleMemberRegistration} />
-            )}
 
-            <Register />
+        <DialogContent sx={{ overflow: "hidden", marginBottom: "3%" }}>
+          <Box>
+            {!memberAuth && !resetPassword ? (
+              <Login
+                onhandleMemberRegistration={handleMemberRegistration}
+                onhandleResetPassword={handleResetPassword}
+              />
+            ) : memberAuth ? (
+              <Collapse in={memberAuth}>
+                <Register
+                  onToggleAnimation={memberAuth}
+                  onSetMemberAuth={setMemberAuth}
+                />
+              </Collapse>
+            ) : resetPassword ? (
+              <Collapse in={resetPassword}>
+                <ResetPassword
+                  onMemberAuth={setMemberAuth}
+                  onToggleAnimation={resetPassword}
+                />
+              </Collapse>
+            ) : undefined}
           </Box>
         </DialogContent>
       </BootstrapDialog>

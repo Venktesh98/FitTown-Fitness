@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import InputControl from "../UI/InputBox/InputControl";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -7,14 +6,15 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Grid from "@mui/material/Grid";
 import styles from "./Register.module.css";
-import ButtonControl from "../UI/Button/ButtonControl";
-import { Form } from "../Hooks/useForm";
+import ButtonControl from "../../UI/Button/ButtonControl";
+import GridContainerControl from "../../UI/Grid/GridContainerControl";
+import InputControl from "../../UI/InputBox/InputControl";
+import { Form } from "../../Hooks/useForm";
 
 // Firebase Imports
-import { db, auth } from "../Services/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../../Services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import GridContainerControl from "../UI/Grid/GridContainerControl";
 
 const userInitialValues = {
   fullName: "",
@@ -24,7 +24,7 @@ const userInitialValues = {
   confirmPassword: "",
 };
 
-const Register = ({ onToggleAnimation }) => {
+const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   console.log("In Regfister", onToggleAnimation);
   const [userCredentials, setUserCredentials] = useState(userInitialValues);
   const [error, setError] = useState("");
@@ -47,6 +47,7 @@ const Register = ({ onToggleAnimation }) => {
     });
   };
 
+  // To check the user is valid nor not
   const validateUserCredentials = () => {
     alert("In check");
     console.log("In valiodatrion");
@@ -61,7 +62,6 @@ const Register = ({ onToggleAnimation }) => {
     return checkPwdIsValid;
   };
   console.log("Error:", error);
-  console.log("onchamge:", userCredentials);
 
   // Registering the User.
   const registerUser = async () => {
@@ -92,18 +92,26 @@ const Register = ({ onToggleAnimation }) => {
     }
   };
 
+  const handleResetRegisterForm = () => {
+    setUserCredentials({ ...userInitialValues });
+  };
+
   const handleUserOperations = (event) => {
     event.preventDefault();
     setError("");
     registerUser();
+    handleResetRegisterForm();
+  };
+
+  const handleRedirect = (event) => {
+    event.preventDefault();
+    onSetMemberAuth(false);
   };
 
   return (
     <section className={styles["registration-container"]}>
       <div
-        className={
-          onToggleAnimation === true ? styles["slide-in-content"] : undefined
-        }
+        className={onToggleAnimation ? styles["slide-in-content"] : undefined}
         id={styles.slider}
       >
         <Form onSubmit={handleUserOperations}>
@@ -174,6 +182,14 @@ const Register = ({ onToggleAnimation }) => {
 
             <Grid item xs={8}>
               <ButtonControl text="Register" />
+              <p className={styles["register-redirect"]}>
+                Already have an account
+                <span className={styles.login}>
+                  <a href="" onClick={handleRedirect}>
+                    Login
+                  </a>
+                </span>
+              </p>
             </Grid>
           </GridContainerControl>
         </Form>
