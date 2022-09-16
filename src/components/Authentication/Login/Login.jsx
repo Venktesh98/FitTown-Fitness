@@ -1,21 +1,37 @@
 import { Grid } from "@mui/material";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { Form } from "../Hooks/useForm";
-import { auth } from "../Services/firebase";
-import ButtonControl from "../UI/Button/ButtonControl";
-import GridContainerControl from "../UI/Grid/GridContainerControl";
-import InputControl from "../UI/InputBox/InputControl";
+import { Form } from "../../Hooks/useForm";
+import { auth } from "../../Services/firebase";
+import ButtonControl from "../../UI/Button/ButtonControl";
+import GridContainerControl from "../../UI/Grid/GridContainerControl";
+import InputControl from "../../UI/InputBox/InputControl";
 import styles from "./Login.module.css";
+
+// firebase imports
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 const loginInitialValues = {
   loginEmail: "",
   loginPassword: "",
 };
 
-const Login = ({ onhandleMemberRegistration }) => {
+const Login = ({
+  onhandleMemberRegistration,
+  onhandleResetPassword,
+  onSetMemberAuth,
+}) => {
   const [loginCredential, setLoginCredential] = useState(loginInitialValues);
   const { loginEmail: email, loginPassword: password } = loginCredential;
+
+  // Reset Login Form
+
+  const handleResetForm = () => {
+    setLoginCredential({ ...loginInitialValues });
+  };
 
   // Logging the User
   const loggingUser = async () => {
@@ -31,6 +47,7 @@ const Login = ({ onhandleMemberRegistration }) => {
     event.preventDefault();
     console.log("In submit");
     loggingUser();
+    handleResetForm();
   };
 
   const handleLoginUserOnChange = (event) => {
@@ -42,6 +59,18 @@ const Login = ({ onhandleMemberRegistration }) => {
     });
   };
 
+  const signInWithGoogle = () => {
+    const googleProvider = new GoogleAuthProvider();
+    console.log("googleProvider:", googleProvider);
+    signInWithPopup(auth, googleProvider)
+      .then((res) => {
+        console.log(res.user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   console.log("loginInitialValues:", loginInitialValues);
 
   return (
@@ -49,7 +78,7 @@ const Login = ({ onhandleMemberRegistration }) => {
       <div id={styles.slider} className={styles["slide-in-content"]}>
         <Form onSubmit={handleLoginOperation}>
           <GridContainerControl>
-            <Grid item xs={8}>
+            <Grid item xs={12} lg={8}>
               <InputControl
                 label="Your Email"
                 type="email"
@@ -69,10 +98,29 @@ const Login = ({ onhandleMemberRegistration }) => {
 
             <Grid item xs={8}>
               <ButtonControl text="Login" />
-              <p>
-                <a href="">Not a member yet?</a>
-                <span onClick={onhandleMemberRegistration}> Register</span>
-              </p>
+
+              <div className={styles["sign-in-with-google"]}>
+                <img
+                  src={
+                    process.env.PUBLIC_URL + "/assets/signin-with-google.png"
+                  }
+                  alt="No Image"
+                  onClick={signInWithGoogle}
+                />
+              </div>
+
+              <div className={styles["auth-links"]}>
+                <p className={styles["forget-password"]}>
+                  <a href="" onClick={onhandleResetPassword}>
+                    Forgot Password
+                  </a>
+                </p>
+
+                <p className={styles["register-member"]}>
+                  <a href="">Not a member yet?</a>
+                  <span onClick={onhandleMemberRegistration}> Register</span>
+                </p>
+              </div>
             </Grid>
           </GridContainerControl>
         </Form>
