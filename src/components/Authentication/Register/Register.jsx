@@ -18,7 +18,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const userInitialValues = {
   fullName: "",
-  gender: "",
+  // gender: { isMale: "", isFemale: "" },
   email: "",
   password: "",
   confirmPassword: "",
@@ -28,6 +28,15 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   console.log("In Regfister", onToggleAnimation);
   const [userCredentials, setUserCredentials] = useState(userInitialValues);
   const [error, setError] = useState("");
+  const [genderValue, setGenderValue] = useState("male");
+
+  useEffect(
+    (event) => {
+      console.log("Inside effect", genderValue);
+      // setGenderValue("male");
+    },
+    [genderValue]
+  );
 
   // Destructuring the values
   const { fullName, email, password, confirmPassword } = userCredentials;
@@ -35,17 +44,46 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   const handleUserOnChange = (event) => {
     const { name, value } = event.target;
 
+    // console.log("Vlaue:", value);
+
     // 1st way using previous values
     // setUserCredentials((prevUserCredentials) => ({
     //   ...prevUserCredentials,
     //   [name]: value,
     // }));
 
+    // if (Object.keys(userCredentials.gender).includes(event.target.name)) {
+    //   console.log("In if");
+    //   setUserCredentials({
+    //     ...userCredentials,
+    //     gender: {
+    //       ...userCredentials.gender,
+    //       [event.target.name]: event.target.value,
+    //     },
+    //   });
+    // } else {
+    //   console.log("In else");
+    //   setUserCredentials({
+    //     ...userCredentials,
+    //     [event.target.name]: event.target.value,
+    //   });
+    // }
+
     setUserCredentials({
       ...userCredentials,
       [name]: value,
     });
   };
+
+  const handleGender = (event) => {
+    const { value } = event.target;
+
+    setGenderValue(value);
+  };
+
+  console.log("Gender:", genderValue);
+
+  // console.log("keys:", Object.keys(userCredentials.gender));
 
   // To check the user is valid nor not
   const validateUserCredentials = () => {
@@ -63,6 +101,14 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   };
   console.log("Error:", error);
 
+  const handleResetRegisterForm = () => {
+    console.log("In reset form");
+    setUserCredentials(userInitialValues);
+    setGenderValue("male");
+  };
+
+  console.log("Original Values:", userCredentials);
+
   // Registering the User.
   const registerUser = async () => {
     if (validateUserCredentials()) {
@@ -75,12 +121,14 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
           password
         );
 
+        handleResetRegisterForm();
         const uid = response.user.uid;
         const collectionRef = collection(db, "users");
         const payload = {
           uid,
           fullName,
-          gender: userCredentials.gender,
+          // gender: userCredentials.gender,
+          genderValue,
           email,
         };
 
@@ -92,15 +140,10 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
     }
   };
 
-  const handleResetRegisterForm = () => {
-    setUserCredentials({ ...userInitialValues });
-  };
-
   const handleUserOperations = (event) => {
     event.preventDefault();
     setError("");
     registerUser();
-    handleResetRegisterForm();
   };
 
   const handleRedirect = (event) => {
@@ -121,6 +164,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
                 label="Your Full Name"
                 type="text"
                 name="fullName"
+                value={fullName}
                 onChange={handleUserOnChange}
               />
             </Grid>
@@ -132,22 +176,25 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
+                  defaultValue={genderValue}
                   name="radio-buttons-group"
                 >
                   <FormControlLabel
+                    checked={genderValue === "male"}
                     value="male"
                     control={<Radio />}
                     label="Male"
                     name="gender"
-                    onChange={handleUserOnChange}
+                    onChange={handleGender}
+                    // checked={userCredentials.gender.isMale == "male"}
                   />
                   <FormControlLabel
+                    checked={genderValue === "female"}
                     value="female"
                     control={<Radio />}
                     label="Female"
                     name="gender"
-                    onChange={handleUserOnChange}
+                    onChange={handleGender}
                   />
                 </RadioGroup>
               </FormControl>
@@ -158,6 +205,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
                 label="Your Email"
                 type="email"
                 name="email"
+                value={email}
                 onChange={handleUserOnChange}
               />
             </Grid>
@@ -167,6 +215,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
                 label="Your Password"
                 type="password"
                 name="password"
+                value={password}
                 onChange={handleUserOnChange}
               />
             </Grid>
@@ -176,6 +225,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
                 label="Your Confirm Password"
                 type="password"
                 name="confirmPassword"
+                value={confirmPassword}
                 onChange={handleUserOnChange}
               />
             </Grid>

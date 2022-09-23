@@ -8,39 +8,40 @@ import { Box } from "@mui/system";
 
 const Footer = () => {
   return (
-    <div className={styles["footer-container"]}>
-      <Grid container spacing={2}>
+    <section className={styles["footer-container"]}>
+      <Grid container spacing={3}>
         <Grid
           item
-          xs={6}
-          md={8}
-          lg={3}
-          sx={{           
+          xs={12}
+          md={6}
+          lg={4.5}
+          /* sx={{           
             display: "flex",
             justifyContent: "center",
-          }}
+          }} */
         >
           <div className={styles["fitTown-container"]}>
             <div className={styles.logo}>
-              fit<span>Town</span>
+              Fit<span>Town</span>
             </div>
             <div className={styles["gym-description"]}>
               Your Ultimate Fitness Center, The place where you can test the
               best Version of yourself, Step up and gear yourself towards your
-              Fitness Journey. <span>#UnleshTheBeastInYou</span>
+              Fitness Journey. <span>#UnleashTheBeastInYou</span>
             </div>
           </div>
         </Grid>
         <Grid
           item
-          xs={6}
-          md={4}
-          lg={3}
-          sx={{           
+          xs={12}
+          md={6}
+          lg={2}
+          // sx={{ marginLeft: "2%" }}
+          /* sx={{           
             display: "flex",
             justifyContent: "center",
-          }}
-        >        
+          }} */
+        >
           <div className={styles["footer-links-container"]}>
             <h3 className={styles["footer-links-heading"]}>Quick Links</h3>
             <div className={styles.quicklinks}>
@@ -54,14 +55,14 @@ const Footer = () => {
         </Grid>
         <Grid
           item
-          xs={6}
-          md={4}
-          lg={3}
-          sx={{           
+          xs={12}
+          md={6}
+          lg={2.6}
+          /* sx={{           
             display: "flex",
             justifyContent: "center",
-          }}
-        >         
+          }} */
+        >
           <div className={styles["footer-links-container"]}>
             <h3 className={styles["footer-links-heading"]}>Location</h3>
             <div className={styles["location-address"]}>
@@ -71,14 +72,14 @@ const Footer = () => {
         </Grid>
         <Grid
           item
-          xs={6}
-          md={8}
-          lg={3}
-          sx={{           
+          xs={12}
+          md={6}
+          lg={2.6}
+          /* sx={{           
             display: "flex",
             justifyContent: "center",
-          }}
-        >         
+          }} */
+        >
           <div className={styles["footer-links-container"]}>
             <h3 className={styles["footer-links-heading"]}>Contact</h3>
             <div className={styles["contact-details-container"]}>
@@ -104,7 +105,7 @@ const Footer = () => {
         <Divider sx={{ background: "white" }} />
         <p>Copyright © 2022 - fitTown | All rights reserved.</p>
       </Box>
-    </div>
+    </section>
   );
 };
 
