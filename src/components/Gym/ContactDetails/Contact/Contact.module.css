@@ -2,6 +2,7 @@
   text-align: center;
 }
 .textarea {
+  width: 99%;
   /* margin-top: 5px; */
 }
 h2 {

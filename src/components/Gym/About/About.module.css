@@ -1,0 +1,32 @@
+.about-fitTown-container {
+  position: relative;
+}
+.about-fitTown-image {
+  /* border: 2px solid black; */
+  background-image: url("../../../../public/assets/we_are-fitTown.jpg");
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+}
+.fitTown-about-us {
+  /* border: 2px solid yellow; */
+  width: 40%;
+  position: absolute;
+  right: 5%;
+  top: 32%;
+  font-size: 23px;
+  text-align: left;
+  line-height: 33px;
+  letter-spacing: 0.5px;
+  font-family: Inter-Medium, Helvetica Neue, Helvetica, Roboto, Arial,
+    sans-serif;
+  color: rgb(63, 59, 59);
+  /* font-weight: 600; */
+}
+.fitTown-about-us > p {
+  font-size: 23px;
+  position: absolute;
+  margin-top: 0.8%;
+  color: rgb(39, 38, 38);
+  font-weight: 500;
+}

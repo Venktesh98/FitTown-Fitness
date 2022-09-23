@@ -51,7 +51,7 @@ const styles = {
   },
 };
 
-const Navbar = () => {
+const Navbar = ({ showNavbar, showNavbarYaxis }) => {
   const [anchorElNav, setAnchorElNav] = React.useState();
   const [anchorElUser, setAnchorElUser] = React.useState();
   const anchorRef = React.useRef(null);

@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { Button, Grid, Paper, TextareaAutosize } from "@mui/material";
 import { fontWeight } from "@mui/system";
 import React, { useState } from "react";
+import { Form } from "../../../Hooks/useForm";
+import ButtonControl from "../../../UI/Button/ButtonControl";
 import InputControl from "../../../UI/InputBox/InputControl";
 import Map from "../Map/Map";
 import styles from "./Contact.module.css";
@@ -13,18 +15,6 @@ const inlineStyles = {
     // border: "1px solid black",
     width: "90%",
     // padding: "10% 0",
-  },
-  buttonStyles: {
-    width: "100%",
-    background: "#f5472d",
-    fontWeight: 600,
-    borderRadius: "2px",
-    height: "3rem",
-    letterSpacing: "3px",
-
-    "&:hover": {
-      background: "rgb(41,45,51)",
-    },
   },
 };
 
@@ -67,8 +57,8 @@ const Contact = () => {
           <Grid item xs={12} lg={4} sx={{ border: "1px solid black" }}>
             <h2>Contact Us</h2>
             <div>
-              <form onSubmit={handleSubmit}>
-                <Grid container spacing={1} sx={{ ...inlineStyles.gridStyles }}>
+              <Form onSubmit={handleSubmit}>
+                <Grid container spacing={2} sx={{ ...inlineStyles.gridStyles }}>
                   <Grid item xs={12} lg={12}>
                     <InputControl
                       name="name"
@@ -96,16 +86,10 @@ const Contact = () => {
                     />
                   </Grid>
                   <Grid item xs={12} lg={12}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      sx={{ ...inlineStyles.buttonStyles }}
-                    >
-                      Submit
-                    </Button>
+                    <ButtonControl text="Submit" />
                   </Grid>
                 </Grid>
-              </form>
+              </Form>
             </div>
           </Grid>
 

@@ -8,6 +8,7 @@ import Trainers from "./components/Gym/Trainers/Trainers";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { useEffect, useState } from "react";
 import CustomizedDialogs from "./components/UI/Dialog/DialogControl";
+import About from "./components/Gym/About/About";
 
 function App() {
   const [showTopNavigationButton, setshowTopNavigationButton] = useState(false);
@@ -33,11 +34,13 @@ function App() {
       {/* <Register /> */}
       {/* <Login /> */}
       {/* <VideoText /> */}
-      <CustomizedDialogs />
+      {/* <CustomizedDialogs /> */}
       {/* <Trainers /> */}
       {/* <Gallery /> */}
       {/* <Contact /> */}
-      {/* <Footer /> */}
+      <About />
+      <Footer />
+
 
       <div className={`back-to-top ${showTopNavigationButton ? "active" : ""}`}>
         {showTopNavigationButton && <ArrowUpwardIcon />}
