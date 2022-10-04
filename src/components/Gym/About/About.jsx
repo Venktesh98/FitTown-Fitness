@@ -1,9 +1,26 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import styles from "./About.module.css";
-import GridContainerControl from "../../UI/Grid/GridContainerControl";
+import useAuth from "../../../Hooks/useAuth";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  console.log("In About");
+  // debugger;
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut()
+      .then((response) => {
+        console.log("Response Logout:", response);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("LogOut Error:", error);
+      });
+  };
   return (
     <section>
       <div className={styles["about-fitTown-container"]}>
@@ -17,6 +34,9 @@ const About = () => {
           and unleashing the best version of you everyday.
           <p>#BeYourNewVersionEveryday</p>
         </div>
+        <Button variant="contained" onClick={handleLogout}>
+          Logout
+        </Button>
       </div>
     </section>
   );

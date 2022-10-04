@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
-import { Form } from "../../Hooks/useForm";
+import { Form } from "../../../Hooks/useForm";
 import { auth } from "../../Services/firebase";
 import ButtonControl from "../../UI/Button/ButtonControl";
 import GridContainerControl from "../../UI/Grid/GridContainerControl";

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/system";
-import styles from "./VideoText.module.css";
+import styles from "./Home.module.css";
+import CustomizedDialogs from "../../UI/Dialog/DialogControl";
 
 // const VideoComponent = styled("video")({
 //   width: "100%",
@@ -40,7 +41,7 @@ import styles from "./VideoText.module.css";
 //   },
 // });
 
-const VideoText = () => {
+const Home = () => {
   const [textStatus, setTextStatus] = useState(false);
   const [animation, setAnimation] = useState(false);
 
@@ -81,6 +82,8 @@ const VideoText = () => {
         </div>
       )}
 
+      <CustomizedDialogs />
+
       {/* <VideoComponent loop autoPlay muted onPlay={handleVideoControl}>
         <source
           src={process.env.PUBLIC_URL + "assets/being-fit.mp4"}
@@ -101,4 +104,4 @@ const VideoText = () => {
   );
 };
 
-export default VideoText;
+export default Home;

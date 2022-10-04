@@ -9,37 +9,33 @@ import styles from "./Register.module.css";
 import ButtonControl from "../../UI/Button/ButtonControl";
 import GridContainerControl from "../../UI/Grid/GridContainerControl";
 import InputControl from "../../UI/InputBox/InputControl";
-import { Form } from "../../Hooks/useForm";
+import { Form } from "../../../Hooks/useForm";
+import useAuth from "../../../Hooks/useAuth";
 
 // Firebase Imports
 import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../../Services/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
-const userInitialValues = {
-  fullName: "",
-  // gender: { isMale: "", isFemale: "" },
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
+import { db } from "../../Services/firebase";
 
 const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   console.log("In Regfister", onToggleAnimation);
-  const [userCredentials, setUserCredentials] = useState(userInitialValues);
-  const [error, setError] = useState("");
-  const [genderValue, setGenderValue] = useState("male");
 
-  useEffect(
-    (event) => {
-      console.log("Inside effect", genderValue);
-      // setGenderValue("male");
-    },
-    [genderValue]
-  );
+  const {
+    userInitialValues,
+    userCredentials,
+    setUserCredentials,
+    userRegistrationResponse,
+  } = useAuth();
+  const [error, setError] = useState("");
+  const [gender, setGender] = useState("male");
+
+  useEffect(() => {
+    console.log("Inside effect", gender);
+    // setGender("male");
+  }, [gender]);
 
   // Destructuring the values
-  const { fullName, email, password, confirmPassword } = userCredentials;
+  const { userFullName, userEmail, userPassword, userConfirmPassword } =
+    userCredentials;
 
   const handleUserOnChange = (event) => {
     const { name, value } = event.target;
@@ -78,10 +74,10 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   const handleGender = (event) => {
     const { value } = event.target;
 
-    setGenderValue(value);
+    setGender(value);
   };
 
-  console.log("Gender:", genderValue);
+  // console.log("Gender:", gender);
 
   // console.log("keys:", Object.keys(userCredentials.gender));
 
@@ -91,8 +87,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
     console.log("In valiodatrion");
     let checkPwdIsValid = true;
 
-    if (password !== "" && confirmPassword !== "") {
-      if (password !== confirmPassword) {
+    if (userPassword !== "" && userConfirmPassword !== "") {
+      if (userPassword !== userConfirmPassword) {
         checkPwdIsValid = false;
         setError("Password didn't matched.");
       }
@@ -104,10 +100,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   const handleResetRegisterForm = () => {
     console.log("In reset form");
     setUserCredentials(userInitialValues);
-    setGenderValue("male");
+    setGender("male");
   };
-
-  console.log("Original Values:", userCredentials);
 
   // Registering the User.
   const registerUser = async () => {
@@ -115,21 +109,17 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
       console.log("In IF");
       // Create a new user with email and password using firebase
       try {
-        let response = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        let response = await userRegistrationResponse();
 
         handleResetRegisterForm();
         const uid = response.user.uid;
         const collectionRef = collection(db, "users");
         const payload = {
           uid,
-          fullName,
+          fullName: userFullName,
           // gender: userCredentials.gender,
-          genderValue,
-          email,
+          gender,
+          email: userEmail,
         };
 
         const userDetails = await addDoc(collectionRef, payload);
@@ -163,8 +153,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
               <InputControl
                 label="Your Full Name"
                 type="text"
-                name="fullName"
-                value={fullName}
+                name="userFullName"
+                value={userFullName}
                 onChange={handleUserOnChange}
               />
             </Grid>
@@ -176,11 +166,11 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue={genderValue}
+                  defaultValue={gender}
                   name="radio-buttons-group"
                 >
                   <FormControlLabel
-                    checked={genderValue === "male"}
+                    checked={gender === "male"}
                     value="male"
                     control={<Radio />}
                     label="Male"
@@ -189,7 +179,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
                     // checked={userCredentials.gender.isMale == "male"}
                   />
                   <FormControlLabel
-                    checked={genderValue === "female"}
+                    checked={gender === "female"}
                     value="female"
                     control={<Radio />}
                     label="Female"
@@ -204,8 +194,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
               <InputControl
                 label="Your Email"
                 type="email"
-                name="email"
-                value={email}
+                name="userEmail"
+                value={userEmail}
                 onChange={handleUserOnChange}
               />
             </Grid>
@@ -214,8 +204,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
               <InputControl
                 label="Your Password"
                 type="password"
-                name="password"
-                value={password}
+                name="userPassword"
+                value={userPassword}
                 onChange={handleUserOnChange}
               />
             </Grid>
@@ -224,8 +214,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
               <InputControl
                 label="Your Confirm Password"
                 type="password"
-                name="confirmPassword"
-                value={confirmPassword}
+                name="userConfirmPassword"
+                value={userConfirmPassword}
                 onChange={handleUserOnChange}
               />
             </Grid>
