@@ -1,53 +1,28 @@
 import { Grid } from "@mui/material";
 import React, { useState } from "react";
-import { Form } from "../../Hooks/useForm";
+import { Form } from "../../../Hooks/useForm";
 import { auth } from "../../Services/firebase";
 import ButtonControl from "../../UI/Button/ButtonControl";
 import GridContainerControl from "../../UI/Grid/GridContainerControl";
 import InputControl from "../../UI/InputBox/InputControl";
 import styles from "./Login.module.css";
 
-// firebase imports
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
+import useAuth from "../../../Hooks/useAuth";
 
-const loginInitialValues = {
-  loginEmail: "",
-  loginPassword: "",
-};
-
-const Login = ({
-  onhandleMemberRegistration,
-  onhandleResetPassword,
-  onSetMemberAuth,
-}) => {
-  const [loginCredential, setLoginCredential] = useState(loginInitialValues);
-  const { loginEmail: email, loginPassword: password } = loginCredential;
-
-  // Reset Login Form
-
-  const handleResetForm = () => {
-    setLoginCredential({ ...loginInitialValues });
-  };
-
-  // Logging the User
-  const loggingUser = async () => {
-    try {
-      let response = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Login Respinse:", response);
-    } catch (error) {
-      console.log("Login Error:", error);
-    }
-  };
+const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
+  const {
+    signInWithGoogle,
+    loggingUser,
+    handleResetLoginForm,
+    setLoginCredential,
+    loginCredential,
+  } = useAuth();
 
   const handleLoginOperation = (event) => {
     event.preventDefault();
     console.log("In submit");
     loggingUser();
-    handleResetForm();
+    handleResetLoginForm();
   };
 
   const handleLoginUserOnChange = (event) => {
@@ -59,39 +34,27 @@ const Login = ({
     });
   };
 
-  const signInWithGoogle = () => {
-    const googleProvider = new GoogleAuthProvider();
-    console.log("googleProvider:", googleProvider);
-    signInWithPopup(auth, googleProvider)
-      .then((res) => {
-        console.log(res.user);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
-  console.log("loginInitialValues:", loginInitialValues);
-
   return (
     <section className={styles["login-container"]}>
       <div id={styles.slider} className={styles["slide-in-content"]}>
         <Form onSubmit={handleLoginOperation}>
           <GridContainerControl>
-            <Grid item xs={12} lg={8}>
+            <Grid item xs={8} lg={8}>
               <InputControl
                 label="Your Email"
                 type="email"
                 name="loginEmail"
+                value={loginCredential.loginEmail}
                 onChange={handleLoginUserOnChange}
               />
             </Grid>
 
-            <Grid item xs={8}>
+            <Grid item xs={8} lg={8}>
               <InputControl
                 label="Your Password"
                 type="password"
                 name="loginPassword"
+                value={loginCredential.loginPassword}
                 onChange={handleLoginUserOnChange}
               />
             </Grid>

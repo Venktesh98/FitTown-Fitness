@@ -85,8 +85,8 @@ export default function CustomizedDialogs() {
     setResetPassword(true);
   };
 
-  console.log("memberAuth:", memberAuth);
-  console.log("resetPassword:", resetPassword);
+  // console.log("memberAuth:", memberAuth);
+  // console.log("resetPassword:", resetPassword);
 
   return (
     <div>
