@@ -37,6 +37,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   const { userFullName, userEmail, userPassword, userConfirmPassword } =
     userCredentials;
 
+
   const handleUserOnChange = (event) => {
     const { name, value } = event.target;
 
@@ -111,7 +112,6 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
       try {
         let response = await userRegistrationResponse();
 
-        handleResetRegisterForm();
         const uid = response.user.uid;
         const collectionRef = collection(db, "users");
         const payload = {
@@ -124,6 +124,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
 
         const userDetails = await addDoc(collectionRef, payload);
         console.log("UserDetails:", userDetails);
+
+        handleResetRegisterForm(); // resets the form
       } catch (error) {
         console.log("Error:", error);
       }
