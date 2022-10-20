@@ -291,7 +291,7 @@ const Pricing = () => {
               >
                 <div className={styles["gym-colmns"]}>
                   <div className={styles["gyms-colmns-text-last-row"]}>
-                    Starting at 1100 / month
+                    Starting at &#8377;1100 / month
                   </div>
 
                   <div>
@@ -305,7 +305,7 @@ const Pricing = () => {
               >
                 <div className={styles["gym-colmns"]}>
                   <div className={styles["gyms-colmns-text-last-row"]}>
-                    Starting at 714 / month
+                    Starting at &#8377;714 / month
                   </div>
 
                   <div>
@@ -319,7 +319,7 @@ const Pricing = () => {
               >
                 <div className={styles["gym-colmns"]}>
                   <div className={styles["gyms-colmns-text-last-row"]}>
-                    Starting at 115 / month
+                    Starting at &#8377;115 / month
                   </div>
                   <div>
                     <BuyNowButton variant="contained">Buy Now</BuyNowButton>
