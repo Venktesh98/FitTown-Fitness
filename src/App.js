@@ -12,6 +12,8 @@ import About from "./components/Gym/About/About";
 import { Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/Authentication/ProtectedRoutes/ProtectedRoute";
+import { HomeLayout } from "./components/Authentication/ProtectedRoutes/HomeLayout";
+import Pricing from "./components/Gym/PriceList/Pricing";
 
 function App() {
   const [showTopNavigationButton, setshowTopNavigationButton] = useState(false);
@@ -37,12 +39,22 @@ function App() {
         {showTopNavigationButton && <ArrowUpwardIcon />}
       </div>
 
+      <Navbar />
       <AuthContextProvider>
         {/* Defining Routes */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Nested Route way i.e using Outlet */}
+          <Route element={<HomeLayout />}>
+            <Route path="/" element={<Home />} />
+          </Route>
 
-          <Route
+          <Route element={<ProtectedRoute />}>
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Route>
+
+          {/* Native Way i.e not ideal in case we have too many routes */}
+          {/* <Route
             path="/about"
             element={
               <ProtectedRoute>
@@ -58,19 +70,20 @@ function App() {
                 <Contact />
               </ProtectedRoute>
             }
-          />
+          /> */}
         </Routes>
+
         {/* <CustomizedDialogs /> */}
       </AuthContextProvider>
 
-      {/* <Navbar /> */}
       {/* <Register /> */}
       {/* <Login /> */}
       {/* <Home /> */}
       {/* <CustomizedDialogs /> */}
-      {/* <Trainers /> */}
-      {/* <Gallery /> */}
-      {/* <Contact /> */}
+      <Trainers />
+      <Gallery />
+      <Pricing />
+      <Contact />
       {/* <About />
       <Footer /> */}
     </div>

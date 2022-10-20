@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 
 const ProtectedRoute = ({ children }) => {
@@ -17,7 +17,9 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/" replace state={{ path: location?.pathname }} />;
   }
 
-  return children;
+  // to render other component when ProtectedRoute is not in use i.e use of children comes into the picture
+  return children ? children : <Outlet />;
+  // return <Outlet />;
 };
 
 export default ProtectedRoute;
