@@ -14,6 +14,7 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/Authentication/ProtectedRoutes/ProtectedRoute";
 import { HomeLayout } from "./components/Authentication/ProtectedRoutes/HomeLayout";
 import Pricing from "./components/Gym/PriceList/Pricing";
+import { DialogContextProvider } from "./contexts/DialogContext";
 
 function App() {
   const [showTopNavigationButton, setshowTopNavigationButton] = useState(false);
@@ -39,8 +40,12 @@ function App() {
         {showTopNavigationButton && <ArrowUpwardIcon />}
       </div>
 
-      <Navbar />
       <AuthContextProvider>
+        <DialogContextProvider>
+          <Navbar />
+          {/* <Gallery /> */}
+          {/* <CustomizedDialogs /> */}
+        </DialogContextProvider>
         {/* Defining Routes */}
         <Routes>
           {/* Nested Route way i.e using Outlet */}
@@ -49,6 +54,7 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute />}>
+            {/* will come Dashboard here */}
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Route>
@@ -82,8 +88,10 @@ function App() {
       {/* <CustomizedDialogs /> */}
       <Trainers />
       <Gallery />
+      {/* <Trainers />
+      <Gallery />
       <Pricing />
-      <Contact />
+      <Contact /> */}
       {/* <About />
       <Footer /> */}
     </div>

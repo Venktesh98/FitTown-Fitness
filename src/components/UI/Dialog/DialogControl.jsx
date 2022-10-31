@@ -1,21 +1,18 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect } from "react";
 import { Box } from "@mui/system";
 import { Collapse, Divider } from "@mui/material";
-import { useState } from "react";
-import { useCallback } from "react";
-
 import Login from "../../Authentication/Login/Login";
 import ResetPassword from "../../Authentication/ResetPassword/ResetPassword";
 import Register from "../../Authentication/Register/Register";
+import DialogContext from "../../../contexts/DialogContext";
+import { useContext } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -59,34 +56,17 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function CustomizedDialogs() {
-  const [open, setOpen] = useState(false);
-  const [memberAuth, setMemberAuth] = useState(false);
-  const [resetPassword, setResetPassword] = useState(false);
+  const dialogContext = useContext(DialogContext);
 
-  useEffect(() => {
-    setOpen(true);
-  }, []);
-
-  //   const handleClickOpen = () => {
-  //     setOpen(!open);
-  //   };
-  const handleClose = () => {
-    setOpen(!open);
-  };
-
-  const handleMemberRegistration = useCallback((event) => {
-    event.preventDefault();
-    setMemberAuth(true);
-    setResetPassword(false);
-  });
-
-  const handleResetPassword = (event) => {
-    event.preventDefault();
-    setResetPassword(true);
-  };
-
-  // console.log("memberAuth:", memberAuth);
-  // console.log("resetPassword:", resetPassword);
+  const {
+    handleClose,
+    handleMemberRegistration,
+    handleResetPassword,
+    open,
+    memberAuth,
+    setMemberAuth,
+    resetPassword,
+  } = dialogContext;
 
   return (
     <div>

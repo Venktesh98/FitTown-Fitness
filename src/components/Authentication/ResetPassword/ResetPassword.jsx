@@ -19,7 +19,6 @@ const ResetPassword = ({ onMemberAuth, onToggleAnimation }) => {
   };
 
   const handleResetPassword = (event) => {
-    console.log("In handleResetPassword");
     event.preventDefault();
 
     sendPasswordResetEmail(auth, email)
@@ -33,11 +32,10 @@ const ResetPassword = ({ onMemberAuth, onToggleAnimation }) => {
 
   const handleRedirect = (event) => {
     event.preventDefault();
-    console.log("In redirect");
+
     onMemberAuth(true);
   };
 
-  console.log("Reset Password:", email);
   return (
     <section>
       <div

@@ -17,8 +17,6 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../Services/firebase";
 
 const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
-  console.log("In Regfister", onToggleAnimation);
-
   const {
     userInitialValues,
     userCredentials,
@@ -29,14 +27,12 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   const [gender, setGender] = useState("male");
 
   useEffect(() => {
-    console.log("Inside effect", gender);
     // setGender("male");
   }, [gender]);
 
   // Destructuring the values
   const { userFullName, userEmail, userPassword, userConfirmPassword } =
     userCredentials;
-
 
   const handleUserOnChange = (event) => {
     const { name, value } = event.target;
@@ -85,7 +81,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   // To check the user is valid nor not
   const validateUserCredentials = () => {
     alert("In check");
-    console.log("In valiodatrion");
+
     let checkPwdIsValid = true;
 
     if (userPassword !== "" && userConfirmPassword !== "") {
@@ -96,10 +92,8 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
     }
     return checkPwdIsValid;
   };
-  console.log("Error:", error);
 
   const handleResetRegisterForm = () => {
-    console.log("In reset form");
     setUserCredentials(userInitialValues);
     setGender("male");
   };
@@ -107,7 +101,6 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   // Registering the User.
   const registerUser = async () => {
     if (validateUserCredentials()) {
-      console.log("In IF");
       // Create a new user with email and password using firebase
       try {
         let response = await userRegistrationResponse();
@@ -123,7 +116,6 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
         };
 
         const userDetails = await addDoc(collectionRef, payload);
-        console.log("UserDetails:", userDetails);
 
         handleResetRegisterForm(); // resets the form
       } catch (error) {

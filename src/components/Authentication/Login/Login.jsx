@@ -20,7 +20,6 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
 
   const handleLoginOperation = (event) => {
     event.preventDefault();
-    console.log("In submit");
     loggingUser();
     handleResetLoginForm();
   };
