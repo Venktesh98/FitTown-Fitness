@@ -22,7 +22,7 @@
   /* width: 100%; */
   position: relative;
   padding: 20px 0 22px;
-  background-color: #ce92899d;
+  background-color: #ce928930;
   /* opacity: 0.8; */
   margin: 4% 0.8% 0 -1%;
   /* background: rgba(199, 221, 243, 0.7); */
@@ -30,7 +30,7 @@
 .trainer-listing-bg {
   position: absolute;
   /* background: rgb(182, 209, 236); */
-  background-color: #f8998b;
+  background-color: #f5dbd7;
   opacity: 0.9;
   width: 100%;
   height: 100%;

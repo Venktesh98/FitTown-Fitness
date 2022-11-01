@@ -43,21 +43,18 @@ export const useFirebaseOperations = () => {
   // Listening the user on page refresh i.e to persists user value
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authenticatedUser) => {
-      console.log("Auth in useEffect:", authenticatedUser);
       setCurrentUser(authenticatedUser);
       setIsLoading(false);
     });
     return () => {
-      console.log("In unmount");
       unsubscribe();
     };
   }, []);
 
   // Google Signin
   const signInWithGoogle = () => {
-    console.log("In sign in google");
     const googleProvider = new GoogleAuthProvider();
-    console.log("googleProvider:", googleProvider);
+
     signInWithPopup(auth, googleProvider)
       .then((res) => {
         console.log(res.user);
@@ -82,7 +79,6 @@ export const useFirebaseOperations = () => {
 
   // Reset Login Form
   const handleResetLoginForm = () => {
-    console.log("In reset form");
     setLoginCredential(loginInitialValues);
   };
 
@@ -99,7 +95,6 @@ export const useFirebaseOperations = () => {
 
   // Logout
   const logOut = async () => {
-    console.log("IN Logouyt...", auth);
     try {
       await signOut(auth);
       setIsLoading(false);

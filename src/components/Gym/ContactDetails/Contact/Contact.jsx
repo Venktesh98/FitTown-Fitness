@@ -38,10 +38,8 @@ const Contact = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("In submit");
   };
 
-  console.log("Vlaues:", values);
   return (
     <div>
       <Paper elevation={6}>

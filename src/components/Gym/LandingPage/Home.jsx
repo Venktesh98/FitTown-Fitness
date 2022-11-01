@@ -50,11 +50,8 @@ const Home = () => {
   }, []);
 
   const handleVideoControl = () => {
-    console.log("In side func");
     setTextStatus(true);
   };
-
-  console.log("Animation:", animation);
 
   return (
     <div>
@@ -82,7 +79,7 @@ const Home = () => {
         </div>
       )}
 
-      <CustomizedDialogs />
+      {/* <CustomizedDialogs /> */}
 
       {/* <VideoComponent loop autoPlay muted onPlay={handleVideoControl}>
         <source
