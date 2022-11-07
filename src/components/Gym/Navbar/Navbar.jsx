@@ -21,6 +21,8 @@ import Drawer from "@mui/material/Drawer";
 import styles from "./Navbar.module.css";
 import SubNavbar from "./SubNavbar";
 import { useEffect } from "react";
+import { auth } from "../../Services/firebase";
+import { useState } from "react";
 
 const inlineStyles = {
   appBar: {
@@ -72,21 +74,18 @@ const inlineStyles = {
   },
 };
 
-const Navbar = ({ showNavbar, showNavbarYaxis }) => {
-  const [anchorElNav, setAnchorElNav] = React.useState();
-  const [anchorElUser, setAnchorElUser] = React.useState();
-  const [openDrawer, setOpenDrawer] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const [prevScrollPos, setPrevScrollPos] = React.useState(0);
-  const [visible, setVisible] = React.useState(true);
+const Navbar = () => {
+  const [anchorElUser, setAnchorElUser] = useState();
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
 
-  const { logOut } = useAuth();
-  const navigate = useNavigate();
-
+  const { currentUser, avatarInitial, setAvatarInitial, logOut } = useAuth();
   const dialogContext = useContext(DialogContext);
-
   const { handleMemberRegistration, setOpen, setMemberAuth, setResetPassword } =
     dialogContext;
+
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -119,11 +118,13 @@ const Navbar = ({ showNavbar, showNavbarYaxis }) => {
   };
 
   const handleLogout = () => {
+    console.log("In logout");
     logOut()
       .then((response) => {
         console.log("Response Logout:", response);
         navigate("/");
         handleCloseUserMenu();
+        setAvatarInitial("");
       })
       .catch((error) => {
         console.log("LogOut Error:", error);
@@ -132,7 +133,6 @@ const Navbar = ({ showNavbar, showNavbarYaxis }) => {
 
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
-    console.log("currentScrollPos:", currentScrollPos);
 
     setVisible(
       (prevScrollPos > currentScrollPos &&
@@ -143,13 +143,16 @@ const Navbar = ({ showNavbar, showNavbarYaxis }) => {
     setPrevScrollPos(currentScrollPos);
   };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos, visible, handleScroll]);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [prevScrollPos, visible, handleScroll]);
 
-  console.log("PrevScrollPosition:", prevScrollPos);
+  // const settingUpUserInitail = () => {
+  //   const userDisplayName = currentUser?.displayName;
+  //   const getUserInitial = userDisplayName?.split("");
+  // };
 
   return (
     <div
@@ -197,6 +200,7 @@ const Navbar = ({ showNavbar, showNavbarYaxis }) => {
                       anchor={"left"}
                       open={openDrawer}
                       onClose={handleDrawerToggle}
+                      disableScrollLock={true} // prevents from locking of vertical scroll bar
                       PaperProps={{
                         sx: { ...inlineStyles.drawerContainer },
                       }}
@@ -295,16 +299,24 @@ const Navbar = ({ showNavbar, showNavbarYaxis }) => {
               {/* Large Screen NavLinks */}
               <Box sx={{ ...inlineStyles.navLinksContainer }}>
                 <Link style={{ textDecoration: "none" }}>
-                  <Button sx={{ ...inlineStyles.navLinkItems }}>
+                  <Button
+                    sx={{ ...inlineStyles.navLinkItems }}
+                    onClick={handleRegister}
+                  >
                     Register
                   </Button>
                 </Link>
 
                 <Link style={{ textDecoration: "none" }}>
-                  <Button sx={{ ...inlineStyles.navLinkItems }}>Login</Button>
+                  <Button
+                    sx={{ ...inlineStyles.navLinkItems }}
+                    onClick={handleLogin}
+                  >
+                    Login
+                  </Button>
                 </Link>
 
-                <Link style={{ textDecoration: "none" }}>
+                <Link style={{ textDecoration: "none" }} to="/about">
                   <Button sx={{ ...inlineStyles.navLinkItems }}>
                     Services
                   </Button>
@@ -317,14 +329,14 @@ const Navbar = ({ showNavbar, showNavbarYaxis }) => {
 
               {/* Avatar and context menu*/}
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
+                <Tooltip title="Personalised area">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="L" src="" />
+                    <Avatar alt={avatarInitial} src={avatarInitial} />
                   </IconButton>
                 </Tooltip>
                 <Menu
                   sx={{ mt: "45px" }}
-                  disableScrollLock={true}
+                  disableScrollLock={true} // prevents from locking of vertical scroll bar
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{

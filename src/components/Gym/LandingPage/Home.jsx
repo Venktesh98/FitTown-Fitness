@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { styled } from "@mui/system";
 import styles from "./Home.module.css";
 import CustomizedDialogs from "../../UI/Dialog/DialogControl";
+import Pricing from "../PriceList/Pricing";
 
 // const VideoComponent = styled("video")({
 //   width: "100%",
@@ -54,34 +55,35 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {/* Using module.css */}
-      <video
-        className={styles.video}
-        loop
-        autoPlay
-        muted
-        onPlay={handleVideoControl}
-      >
-        <source
-          src={process.env.PUBLIC_URL + "assets/being-fit.mp4"}
-          type="video/mp4"
-        />
-      </video>
+    <>
+      <div>
+        {/* Using module.css */}
+        <video
+          className={styles.video}
+          loop
+          autoPlay
+          muted
+          onPlay={handleVideoControl}
+        >
+          <source
+            src={process.env.PUBLIC_URL + "assets/being-fit.mp4"}
+            type="video/mp4"
+          />
+        </video>
 
-      {textStatus && (
-        <div className={animation ? styles["heading-container"] : ""}>
-          <h1 className={animation ? styles.heading : ""}>
-            Boost up your <br />
-            <span className="fitness">fitness Challenge</span> <br />
-            with us
-          </h1>
-        </div>
-      )}
+        {textStatus && (
+          <div className={animation ? styles["heading-container"] : ""}>
+            <h1 className={animation ? styles.heading : ""}>
+              Boost up your <br />
+              <span className="fitness">fitness Challenge</span> <br />
+              with us
+            </h1>
+          </div>
+        )}
 
-      {/* <CustomizedDialogs /> */}
+        {/* <CustomizedDialogs /> */}
 
-      {/* <VideoComponent loop autoPlay muted onPlay={handleVideoControl}>
+        {/* <VideoComponent loop autoPlay muted onPlay={handleVideoControl}>
         <source
           src={process.env.PUBLIC_URL + "assets/being-fit.mp4"}
           type="video/mp4"
@@ -97,7 +99,12 @@ const Home = () => {
           </HeadingComponent>
         </HeadingDivComponenet>
       )} */}
-    </div>
+      </div>
+
+      <div>
+        {/* <Pricing /> */}
+      </div>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+import { Link } from "react-scroll";
 import styles from "./SubNavbar.module.css";
 
 const inlineStyles = {
@@ -30,7 +31,17 @@ const SubNavbar = () => {
       <Button sx={{ ...inlineStyles.subHeaderNavLinkItems }}>Trainers</Button>
       <Button sx={{ ...inlineStyles.subHeaderNavLinkItems }}>Gallery</Button>
       <Button sx={{ ...inlineStyles.comparePlanContainer }}>
-        <div className={styles["compare-plans"]}>Compare Plans</div>
+        <div className={styles["compare-plans"]}>
+          <Link
+            // activeClass="active"
+            to="pricing"
+            spy={true}
+            smooth={true}
+            duration={1500}
+          >
+            Compare Plans
+          </Link>
+        </div>
       </Button>
     </div>
   );

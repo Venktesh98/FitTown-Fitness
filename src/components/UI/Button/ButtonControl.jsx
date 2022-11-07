@@ -16,13 +16,14 @@ const inlineStyles = {
   },
 };
 
-const ButtonControl = ({ text }) => {
+const ButtonControl = ({ text, disabled = null }) => {
   return (
     <div>
       <Button
         type="submit"
         variant="contained"
         sx={{ ...inlineStyles.buttonStyles }}
+        disabled={disabled}
       >
         {text}
       </Button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -12,9 +12,11 @@ import InputControl from "../../UI/InputBox/InputControl";
 import { Form } from "../../../Hooks/useForm";
 import useAuth from "../../../Hooks/useAuth";
 
+import DialogContext from "../../../contexts/DialogContext";
 // Firebase Imports
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../Services/firebase";
+import { auth, db } from "../../Services/firebase";
+import { updateProfile } from "firebase/auth";
 
 const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   const {
@@ -23,6 +25,9 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
     setUserCredentials,
     userRegistrationResponse,
   } = useAuth();
+
+  const { setOpen } = useContext(DialogContext);
+
   const [error, setError] = useState("");
   const [gender, setGender] = useState("male");
 
@@ -105,19 +110,34 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
       try {
         let response = await userRegistrationResponse();
 
-        const uid = response.user.uid;
-        const collectionRef = collection(db, "users");
-        const payload = {
-          uid,
-          fullName: userFullName,
-          // gender: userCredentials.gender,
-          gender,
-          email: userEmail,
-        };
+        try {
+          const uid = response.user.uid;
+          console.log("Register response:", response);
 
-        const userDetails = await addDoc(collectionRef, payload);
+          // Setting up the diplayName of the user
+          await updateProfile(auth.currentUser, {
+            displayName: userFullName,
+          });
 
-        handleResetRegisterForm(); // resets the form
+          // creating a collection named as "users" in FireStore DB
+          const collectionRef = collection(db, "users");
+          const payload = {
+            uid,
+            fullName: userFullName,
+            // gender: userCredentials.gender,
+            gender,
+            email: userEmail,
+          };
+
+          // Saving the user details into the Firestore DB
+          const userDetails = await addDoc(collectionRef, payload); // used for adding data into Firestore Database
+          console.log("userDetails:", userDetails);
+        } catch (error) {
+          console.log("Inner Error:", error);
+        }
+
+        handleResetRegisterForm(); // resets the form.
+        // setOpen(false);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -128,12 +148,20 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
     event.preventDefault();
     setError("");
     registerUser();
+    setOpen(false);
   };
 
   const handleRedirect = (event) => {
     event.preventDefault();
     onSetMemberAuth(false);
   };
+
+  const isButtonEnabled =
+    userFullName.length > 0 &&
+    userEmail.length > 0 &&
+    userPassword.length > 0 &&
+    userConfirmPassword.length > 0 &&
+    gender.length > 0;
 
   return (
     <section className={styles["registration-container"]}>
@@ -215,7 +243,7 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
             </Grid>
 
             <Grid item xs={8}>
-              <ButtonControl text="Register" />
+              <ButtonControl text="Register" disabled={!isButtonEnabled} />
               <p className={styles["register-redirect"]}>
                 Already have an account
                 <span className={styles.login}>

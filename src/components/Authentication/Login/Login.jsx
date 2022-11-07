@@ -1,13 +1,18 @@
 import { Grid } from "@mui/material";
 import React, { useState } from "react";
 import { Form } from "../../../Hooks/useForm";
-import { auth } from "../../Services/firebase";
 import ButtonControl from "../../UI/Button/ButtonControl";
 import GridContainerControl from "../../UI/Grid/GridContainerControl";
 import InputControl from "../../UI/InputBox/InputControl";
 import styles from "./Login.module.css";
 
 import useAuth from "../../../Hooks/useAuth";
+import { useContext } from "react";
+import DialogContext from "../../../contexts/DialogContext";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useToast } from "../../../Hooks/useToast";
 
 const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
   const {
@@ -18,9 +23,27 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
     loginCredential,
   } = useAuth();
 
-  const handleLoginOperation = (event) => {
+  const toastResponse = useToast();
+
+  const { loginEmail, loginPassword } = loginCredential;
+  const { setOpen } = useContext(DialogContext);
+
+  // variables for Toast Messages
+  let type = undefined;
+  let message = undefined;
+
+  const handleLoginOperation = async (event) => {
     event.preventDefault();
-    loggingUser();
+    const loginResponse = await loggingUser();
+    if (loginResponse) {
+      toastResponse((type = "success"), (message = "LoggedIn Successfully!"));
+    } else {
+      toastResponse(
+        (type = "error"),
+        (message = "Something went wrong, Please Login again")
+      );
+    }
+    setOpen(false);
     handleResetLoginForm();
   };
 
@@ -32,6 +55,8 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
       [name]: value,
     });
   };
+
+  const isButtonEnabled = loginEmail.length > 0 && loginPassword.length > 0;
 
   return (
     <section className={styles["login-container"]}>
@@ -58,9 +83,11 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
               />
             </Grid>
 
-            <Grid item xs={8}>
-              <ButtonControl text="Login" />
+            <Grid item xs={8} lg={8}>
+              <ButtonControl text="Login" disabled={!isButtonEnabled} />
+            </Grid>
 
+            <Grid item xs={8} lg={8}>
               <div className={styles["sign-in-with-google"]}>
                 <img
                   src={
@@ -85,6 +112,7 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
               </div>
             </Grid>
           </GridContainerControl>
+          <ToastContainer />
         </Form>
       </div>
     </section>
