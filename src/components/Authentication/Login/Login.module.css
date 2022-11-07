@@ -29,15 +29,14 @@
 
 .sign-in-with-google {
   /* position: relative; */
-  width: 435px;
-  height: 152px;
-  margin: 0 0 0 -16%;
+  margin-top: 2%;
 }
 .sign-in-with-google > img {
   /* border: 2px solid black; */
   /* position: absolute; */
-  margin-top: -8%;
-  width: 100%;
+  margin-top: -6%;
+  margin-left: -1%;
+  width: 103%;
   height: 100%;
   /* text-align: center; */
   cursor: pointer;
@@ -47,7 +46,7 @@
 .auth-links {
   /* border: 2px solid #f5472d; */
   position: relative;
-  top: -30%;
+  top: -8%;
 }
 
 .forget-password {
@@ -60,6 +59,7 @@
   /* position: absolute; */
   display: flex;
   justify-content: center;
+  /* border: 1px solid red; */
 }
 
 .register-member > a {

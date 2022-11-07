@@ -28,6 +28,7 @@ const loginInitialValues = {
 export const useFirebaseOperations = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [avatarInitial, setAvatarInitial] = useState("");
 
   // Registration
   const [userCredentials, setUserCredentials] = useState(userInitialValues);
@@ -44,12 +45,21 @@ export const useFirebaseOperations = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authenticatedUser) => {
       setCurrentUser(authenticatedUser);
+      settingUpUserInitial(authenticatedUser);
       setIsLoading(false);
     });
     return () => {
       unsubscribe();
     };
   }, []);
+
+  // For Displaying user initial on context menu
+  const settingUpUserInitial = (user) => {
+    const userDisplayName = user?.displayName;
+    const getUserInitial = userDisplayName?.split("");
+
+    setAvatarInitial(getUserInitial[0]);
+  };
 
   // Google Signin
   const signInWithGoogle = () => {
@@ -67,12 +77,18 @@ export const useFirebaseOperations = () => {
 
   // Logging the User with Email and Password
   const loggingUser = async () => {
+    console.log("In Login");
     try {
       let response = await signInWithEmailAndPassword(auth, email, password);
       console.log("Login Response:", response);
-      navigate(state?.path);
-      setIsLoading(false);
+
+      if (response) {
+        navigate(state ? state?.path : "/");
+        setIsLoading(false);
+        return response;
+      }
     } catch (error) {
+      console.log("Login Error:", error.message);
       console.log("Login Error:", error);
     }
   };
@@ -116,5 +132,7 @@ export const useFirebaseOperations = () => {
     setUserCredentials,
     userCredentials,
     userRegistrationResponse,
+    avatarInitial,
+    setAvatarInitial,
   };
 };

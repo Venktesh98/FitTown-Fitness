@@ -16,7 +16,7 @@ const BuyNowButton = styled(Button)({
 
 const Pricing = () => {
   return (
-    <section className={styles["pricing-section"]}>
+    <section className={styles["pricing-section"]} id="pricing">
       <div className={styles["price-headings"]}>
         <h2>Choose your fitness regime</h2>
         <h4>The flexile plans that suits your fitness needs.</h4>

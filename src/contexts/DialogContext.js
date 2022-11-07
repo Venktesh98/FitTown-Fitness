@@ -31,6 +31,7 @@ export const DialogContextProvider = ({ children }) => {
     setResetPassword(true);
   };
 
+  console.log("Memeber:", memberAuth);
   return (
     <DialogContext.Provider
       value={{
@@ -43,7 +44,7 @@ export const DialogContextProvider = ({ children }) => {
         memberAuth,
         setMemberAuth,
         resetPassword,
-        setResetPassword,
+        setResetPassword
       }}
     >
       {children}

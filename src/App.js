@@ -15,6 +15,11 @@ import ProtectedRoute from "./components/Authentication/ProtectedRoutes/Protecte
 import { HomeLayout } from "./components/Authentication/ProtectedRoutes/HomeLayout";
 import Pricing from "./components/Gym/PriceList/Pricing";
 import { DialogContextProvider } from "./contexts/DialogContext";
+import NotFound from "./components/Errors/NotFound";
+import { animateScroll as scroll } from "react-scroll";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";  
+import { Button } from "@mui/material";
 
 function App() {
   const [showTopNavigationButton, setshowTopNavigationButton] = useState(false);
@@ -34,18 +39,30 @@ function App() {
       window.removeEventListener("scroll", toggleNavigationVisibility);
   }, []);
 
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
+
+  const notify = () => {
+    console.log("In notify");
+    toast("Wow so easy!");
+  };
+
   return (
     <div>
-      <div className={`back-to-top ${showTopNavigationButton ? "active" : ""}`}>
+      <div
+        className={`back-to-top ${showTopNavigationButton ? "active" : ""}`}
+        onClick={scrollToTop}
+      >
         {showTopNavigationButton && <ArrowUpwardIcon />}
       </div>
 
       <AuthContextProvider>
         <DialogContextProvider>
           <Navbar />
-          {/* <Gallery /> */}
-          {/* <CustomizedDialogs /> */}
+          {/* <Pricing /> */}
         </DialogContextProvider>
+
         {/* Defining Routes */}
         <Routes>
           {/* Nested Route way i.e using Outlet */}
@@ -58,6 +75,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Route>
+
+          <Route path="*" element={<NotFound />} />
 
           {/* Native Way i.e not ideal in case we have too many routes */}
           {/* <Route
@@ -80,20 +99,21 @@ function App() {
         </Routes>
 
         {/* <CustomizedDialogs /> */}
+        {/* <Pricing /> */}
       </AuthContextProvider>
-
       {/* <Register /> */}
       {/* <Login /> */}
       {/* <Home /> */}
       {/* <CustomizedDialogs /> */}
-      <Trainers />
-      <Gallery />
       {/* <Trainers />
       <Gallery />
       <Pricing />
       <Contact /> */}
       {/* <About />
       <Footer /> */}
+
+      <Button onClick={notify}>Click</Button>
+      <ToastContainer />
     </div>
   );
 }

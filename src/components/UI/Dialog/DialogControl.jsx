@@ -74,6 +74,7 @@ export default function CustomizedDialogs() {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        disableScrollLock={true} // prevents from locking of vertical scroll bar
         PaperProps={{
           sx: {
             width: { xs: "100%", sm: "50%", md: "45%", lg: "35%" },
