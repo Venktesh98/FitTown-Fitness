@@ -23,6 +23,7 @@ import SubNavbar from "./SubNavbar";
 import { useEffect } from "react";
 import { auth } from "../../Services/firebase";
 import { useState } from "react";
+import { useToast } from "../../../Hooks/useToast";
 
 const inlineStyles = {
   appBar: {
@@ -86,6 +87,10 @@ const Navbar = () => {
     dialogContext;
 
   const navigate = useNavigate();
+  const toastResponse = useToast();
+
+  let type = "";
+  let message = "";
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -119,16 +124,22 @@ const Navbar = () => {
 
   const handleLogout = () => {
     console.log("In logout");
-    logOut()
-      .then((response) => {
-        console.log("Response Logout:", response);
-        navigate("/");
-        handleCloseUserMenu();
-        setAvatarInitial("");
-      })
-      .catch((error) => {
-        console.log("LogOut Error:", error);
-      });
+
+    if (currentUser) {
+      logOut()
+        .then((response) => {
+          console.log("Response Logout:", response);
+          navigate("/");
+          handleCloseUserMenu();
+          setAvatarInitial("");
+        })
+        .catch((error) => {
+          console.log("LogOut Error:", error);
+        });
+    } else {
+      toastResponse((type = "info"), (message = "Please login First"));
+      handleCloseUserMenu();
+    }
   };
 
   const handleScroll = () => {

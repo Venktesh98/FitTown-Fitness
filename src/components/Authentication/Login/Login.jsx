@@ -1,9 +1,12 @@
 import { Grid } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form } from "../../../Hooks/useForm";
 import ButtonControl from "../../UI/Button/ButtonControl";
 import GridContainerControl from "../../UI/Grid/GridContainerControl";
 import InputControl from "../../UI/InputBox/InputControl";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import styles from "./Login.module.css";
 
 import useAuth from "../../../Hooks/useAuth";
@@ -13,6 +16,20 @@ import DialogContext from "../../../contexts/DialogContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useToast } from "../../../Hooks/useToast";
+import {
+  auth,
+  browserSessionPersistence,
+  browserLocalPersistence,
+  setPersistence,
+} from "../../Services/firebase";
+
+const inlineStyles = {
+  checkbox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+};
 
 const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
   const {
@@ -21,6 +38,7 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
     handleResetLoginForm,
     setLoginCredential,
     loginCredential,
+    currentUser,
   } = useAuth();
 
   const toastResponse = useToast();
@@ -32,16 +50,39 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
   let type = undefined;
   let message = undefined;
 
+  const [userSession, setUserSession] = useState(false);
+
+  // Determining the user Sesion i.e based on the Remember me
+  // funtionality by default will be in Session logs out in case
+  // tab or window is closed else If user clicks on the Remember m e
+  // will persists until user explicitly logs out
+  useEffect(() => {
+    (async () => {
+      userSession
+        ? await setPersistence(auth, browserLocalPersistence)
+        : await setPersistence(auth, browserSessionPersistence);
+    })();
+  }, [userSession]);
+
   const handleLoginOperation = async (event) => {
     event.preventDefault();
-    const loginResponse = await loggingUser();
-    if (loginResponse) {
-      toastResponse((type = "success"), (message = "LoggedIn Successfully!"));
-    } else {
-      toastResponse(
-        (type = "error"),
-        (message = "Something went wrong, Please Login again")
-      );
+
+    // Already User Logged in and if tries again.
+    if (currentUser) {
+      console.log("Alredy LoggedIn");
+      toastResponse((type = "info"), (message = "You're Already LoggedIn!"));
+    }
+    // Logging for the first time
+    else {
+      const loginResponse = await loggingUser();
+      if (loginResponse) {
+        toastResponse((type = "success"), (message = "Login Successfully!"));
+      } else {
+        toastResponse(
+          (type = "error"),
+          (message = "Something went wrong, Please Login again")
+        );
+      }
     }
     setOpen(false);
     handleResetLoginForm();
@@ -56,6 +97,16 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
     });
   };
 
+  const handleRememberMe = async (event) => {
+    console.log("In remeberr me:", event.target.checked);
+
+    const isCheckboxChecked = event.target.checked;
+    setUserSession(isCheckboxChecked);
+  };
+
+  console.log("userSession:", userSession);
+
+  // For disabiling the buttons until all fields are filled
   const isButtonEnabled = loginEmail.length > 0 && loginPassword.length > 0;
 
   return (
@@ -98,6 +149,17 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
                 />
               </div>
 
+              <div>
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Remember Me"
+                    sx={{ ...inlineStyles.checkbox }}
+                    onClick={handleRememberMe}
+                  />
+                </FormGroup>
+              </div>
+
               <div className={styles["auth-links"]}>
                 <p className={styles["forget-password"]}>
                   <a href="" onClick={onhandleResetPassword}>
@@ -112,7 +174,6 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
               </div>
             </Grid>
           </GridContainerControl>
-          <ToastContainer />
         </Form>
       </div>
     </section>

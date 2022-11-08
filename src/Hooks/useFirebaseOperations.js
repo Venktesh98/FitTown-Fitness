@@ -57,8 +57,9 @@ export const useFirebaseOperations = () => {
   const settingUpUserInitial = (user) => {
     const userDisplayName = user?.displayName;
     const getUserInitial = userDisplayName?.split("");
-
-    setAvatarInitial(getUserInitial[0]);
+    if (getUserInitial !== undefined) {
+      setAvatarInitial(getUserInitial[0]);
+    }
   };
 
   // Google Signin

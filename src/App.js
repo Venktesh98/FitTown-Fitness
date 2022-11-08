@@ -17,9 +17,8 @@ import Pricing from "./components/Gym/PriceList/Pricing";
 import { DialogContextProvider } from "./contexts/DialogContext";
 import NotFound from "./components/Errors/NotFound";
 import { animateScroll as scroll } from "react-scroll";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";  
-import { Button } from "@mui/material";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [showTopNavigationButton, setshowTopNavigationButton] = useState(false);
@@ -42,12 +41,6 @@ function App() {
   const scrollToTop = () => {
     scroll.scrollToTop();
   };
-
-  const notify = () => {
-    console.log("In notify");
-    toast("Wow so easy!");
-  };
-
   return (
     <div>
       <div
@@ -112,7 +105,6 @@ function App() {
       {/* <About />
       <Footer /> */}
 
-      <Button onClick={notify}>Click</Button>
       <ToastContainer />
     </div>
   );
