@@ -41,18 +41,28 @@ const Contact = () => {
   };
 
   return (
-    <div>
-      <Paper elevation={6}>
+    <section id="contact">
+      <Paper elevation={0}>
         <Grid
           container
           spacing={2}
           sx={{
             textAlign: "center",
-            border: "1px solid black",
+            // border: "1px solid black",
             padding: "5% 0",
+            backgroundColor: "#f1e9e96b",
           }}
         >
-          <Grid item xs={12} lg={4} sx={{ border: "1px solid black" }}>
+          <Grid
+            item
+            xs={12}
+            lg={4}
+            sx={
+              {
+                /* border: "1px solid black" */
+              }
+            }
+          >
             <h2>Contact Us</h2>
             <div>
               <Form onSubmit={handleSubmit}>
@@ -127,7 +137,7 @@ const Contact = () => {
           </Grid>
         </Grid>
       </Paper>
-    </div>
+    </section>
   );
 };
 
