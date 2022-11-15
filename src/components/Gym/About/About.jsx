@@ -6,7 +6,7 @@ const About = () => {
   // debugger;
 
   return (
-    <section id="about">
+    <section>
       <div className={styles["about-fitTown-container"]}>
         <div className={styles["about-fitTown-image"]}></div>
         <div className={styles["fitTown-about-us"]}>

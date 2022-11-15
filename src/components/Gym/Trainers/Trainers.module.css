@@ -5,6 +5,11 @@
   font-weight: 700;
   margin: 3% 0 0.2% 0;
 }
+.underline {
+  border-bottom: 3px solid #f5634b;
+  width: 13%;
+  margin: 0 auto;
+}
 .trainers-listing-wrapper {
   position: relative;
   width: 90%;
