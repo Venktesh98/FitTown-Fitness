@@ -24,6 +24,9 @@ import { useEffect } from "react";
 import { auth } from "../../Services/firebase";
 import { useState } from "react";
 import { useToast } from "../../../Hooks/useToast";
+import { Link, useNavigate } from "react-router-dom";
+import Scroll from "react-scroll";
+import { useEffect } from "react";
 
 const inlineStyles = {
   appBar: {
@@ -104,10 +107,6 @@ const Navbar = () => {
     setOpenDrawer(!openDrawer);
   };
 
-  const handleNavigation = () => {
-    console.log("In navigation");
-  };
-
   const handleRegister = (event) => {
     setOpen(true);
     handleMemberRegistration(event);
@@ -129,6 +128,7 @@ const Navbar = () => {
       logOut()
         .then((response) => {
           console.log("Response Logout:", response);
+          toastResponse((type = "info"), (message = "Logged Out Successfully"));
           navigate("/");
           handleCloseUserMenu();
           setAvatarInitial("");
@@ -140,6 +140,16 @@ const Navbar = () => {
       toastResponse((type = "info"), (message = "Please login First"));
       handleCloseUserMenu();
     }
+  };
+
+  const handleMobileScreenMenuForRegister = (event) => {
+    handleDrawerToggle();
+    handleRegister(event);
+  };
+
+  const handleMobileScreenMenuForLogin = () => {
+    handleLogin();
+    handleDrawerToggle();
   };
 
   const handleScroll = () => {
@@ -159,11 +169,6 @@ const Navbar = () => {
 
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, [prevScrollPos, visible, handleScroll]);
-
-  // const settingUpUserInitail = () => {
-  //   const userDisplayName = currentUser?.displayName;
-  //   const getUserInitial = userDisplayName?.split("");
-  // };
 
   return (
     <div
@@ -228,7 +233,7 @@ const Navbar = () => {
 
                         <Link className={styles["drawer-nav-links"]}>
                           <Button
-                            onClick={handleDrawerToggle}
+                            onClick={handleMobileScreenMenuForRegister}
                             sx={{ ...inlineStyles.navLinkItems }}
                           >
                             About
@@ -237,7 +242,7 @@ const Navbar = () => {
 
                         <Link className={styles["drawer-nav-links"]}>
                           <Button
-                            onClick={handleDrawerToggle}
+                            onClick={handleMobileScreenMenuForLogin}
                             sx={{ ...inlineStyles.navLinkItems }}
                           >
                             Services
@@ -374,7 +379,7 @@ const Navbar = () => {
                     </Typography>
                   </MenuItem>
 
-                  <MenuItem onClick={handleNavigation}>
+                  <MenuItem /* onClick={handleNavigation} */>
                     <Typography sx={{ textAlign: "center", color: "black" }}>
                       Dashboard
                     </Typography>

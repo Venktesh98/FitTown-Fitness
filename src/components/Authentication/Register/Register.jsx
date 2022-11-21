@@ -17,6 +17,7 @@ import DialogContext from "../../../contexts/DialogContext";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../../Services/firebase";
 import { updateProfile } from "firebase/auth";
+import { useToast } from "../../../Hooks/useToast";
 
 const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
   const {
@@ -24,12 +25,19 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
     userCredentials,
     setUserCredentials,
     userRegistrationResponse,
+    settingUpUserInitial,
   } = useAuth();
 
   const { setOpen } = useContext(DialogContext);
 
   const [error, setError] = useState("");
   const [gender, setGender] = useState("male");
+
+  const toastResponse = useToast();
+
+  // variables for Toast Messages
+  let type = undefined;
+  let message = undefined;
 
   useEffect(() => {
     // setGender("male");
@@ -110,31 +118,36 @@ const Register = ({ onToggleAnimation, onSetMemberAuth }) => {
       try {
         let response = await userRegistrationResponse();
 
-        try {
-          const uid = response.user.uid;
-          console.log("Register response:", response);
+        // try {
+        // Setting up the diplayName of the user
+        await updateProfile(auth.currentUser, {
+          displayName: userFullName,
+        });
 
-          // Setting up the diplayName of the user
-          await updateProfile(auth.currentUser, {
-            displayName: userFullName,
-          });
+        const uid = response.user.uid;
+        console.log("Register response:", response);
 
-          // creating a collection named as "users" in FireStore DB
-          const collectionRef = collection(db, "users");
-          const payload = {
-            uid,
-            fullName: userFullName,
-            // gender: userCredentials.gender,
-            gender,
-            email: userEmail,
-          };
+        settingUpUserInitial(response.user.displayName);
+        // creating a collection named as "users" in FireStore DB
+        const collectionRef = collection(db, "users");
+        const payload = {
+          uid,
+          fullName: userFullName,
+          // gender: userCredentials.gender,
+          gender,
+          email: userEmail,
+        };
 
-          // Saving the user details into the Firestore DB
-          const userDetails = await addDoc(collectionRef, payload); // used for adding data into Firestore Database
-          console.log("userDetails:", userDetails);
-        } catch (error) {
-          console.log("Inner Error:", error);
-        }
+        // Saving the user details into the Firestore DB
+        const userDetails = await addDoc(collectionRef, payload); // used for adding data into Firestore Database
+        console.log("userDetails:", userDetails);
+        toastResponse(
+          (type = "success"),
+          (message = "Registered Successfully")
+        );
+        // } catch (error) {
+        //   console.log("Inner Error:", error);
+        // }
 
         handleResetRegisterForm(); // resets the form.
         // setOpen(false);

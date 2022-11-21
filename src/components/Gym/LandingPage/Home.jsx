@@ -3,6 +3,13 @@ import { styled } from "@mui/system";
 import styles from "./Home.module.css";
 import CustomizedDialogs from "../../UI/Dialog/DialogControl";
 import Pricing from "../PriceList/Pricing";
+import Services from "../Services/Services";
+import Gallery from "../Gallery/Gallery";
+import Trainers from "../Trainers/Trainers";
+import About from "../About/About";
+import Footer from "../Footer/Footer";
+import Contact from "../ContactDetails/Contact/Contact";
+import CelebrityQuotes from "../CelebrityQuotes/CelebrityQuotes";
 
 // const VideoComponent = styled("video")({
 //   width: "100%",
@@ -102,7 +109,18 @@ const Home = () => {
       </div>
 
       <div>
+<<<<<<< HEAD
+        <Gallery />
+        <Services />
+        <Trainers />
+        <Pricing />
+        <About />
+        <CelebrityQuotes />
+        <Contact />
+        <Footer />
+=======
         {/* <Pricing /> */}
+>>>>>>> 70e48c63d879aaf52b41646f14d09d5422d9e958
       </div>
     </>
   );

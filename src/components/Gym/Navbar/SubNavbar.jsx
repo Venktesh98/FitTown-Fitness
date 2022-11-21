@@ -33,10 +33,54 @@ const SubNavbar = () => {
   return (
     <div className={styles["sub-header-container"]}>
       <div className={styles["sub-header-modules"]}>
-        <Button sx={{ ...inlineStyles.subHeaderNavLinkItems }}>Home</Button>
-        <Button sx={{ ...inlineStyles.subHeaderNavLinkItems }}>About</Button>
-        <Button sx={{ ...inlineStyles.subHeaderNavLinkItems }}>Trainers</Button>
-        <Button sx={{ ...inlineStyles.subHeaderNavLinkItems }}>Gallery</Button>
+        <ScrollLink
+          // activeClass="active"
+          to="home"
+          spy={true}
+          smooth={true}
+          duration={1500}
+        >
+          <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>
+            Home
+          </Button>
+        </ScrollLink>
+
+        <ScrollLink
+          activeClass="active"
+          to="gallery"
+          spy={true}
+          smooth={true}
+          duration={1500}
+        >
+          <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>
+            Gallery
+          </Button>
+        </ScrollLink>
+
+        <ScrollLink
+          activeClass="active"
+          to="services"
+          spy={true}
+          smooth={true}
+          duration={1500}
+        >
+          <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>
+            Services
+          </Button>
+        </ScrollLink>
+
+        <ScrollLink
+          activeClass="active"
+          to="trainers"
+          spy={true}
+          smooth={true}
+          duration={1500}
+        >
+          <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>
+            Trainers
+          </Button>
+        </ScrollLink>
+
         <Button sx={{ ...inlineStyles.comparePlanContainer }}>
           <div className={styles["compare-plans"]}>
             <Link
