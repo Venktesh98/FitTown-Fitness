@@ -10,11 +10,12 @@
 }
 .fitTown-about-us {
   /* border: 2px solid yellow; */
-  width: 40%;
+  width: 80%;
   position: absolute;
-  right: 5%;
-  top: 32%;
-  font-size: 23px;
+  right: auto;
+  left: 5%;
+  top: 60%;
+  font-size: 20px;
   text-align: left;
   line-height: 33px;
   letter-spacing: 0.5px;

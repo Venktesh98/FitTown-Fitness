@@ -19,6 +19,7 @@ import NotFound from "./components/Errors/NotFound";
 import { animateScroll as scroll } from "react-scroll";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Services from "./components/Gym/Services/Services";
 
 function App() {
   const [showTopNavigationButton, setshowTopNavigationButton] = useState(false);
@@ -44,7 +45,7 @@ function App() {
   return (
     <div>
       <div
-        className={`back-to-top ${showTopNavigationButton ? "active" : ""}`}
+        className={`back-to-top ${showTopNavigationButton ? "activate-animation" : ""}`}
         onClick={scrollToTop}
       >
         {showTopNavigationButton && <ArrowUpwardIcon />}
@@ -65,8 +66,8 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             {/* will come Dashboard here */}
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            {/* <Route path="/about" element={<About />} /> */}
+            {/* <Route path="/contact" element={<Contact />} /> */}
           </Route>
 
           <Route path="*" element={<NotFound />} />
@@ -104,6 +105,8 @@ function App() {
       <Contact /> */}
       {/* <About />
       <Footer /> */}
+
+      {/* <Services /> */}
 
       <ToastContainer />
     </div>
