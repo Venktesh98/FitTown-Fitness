@@ -1,7 +1,14 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-const InputControl = ({ type = "text", value, name, onChange, label }) => {
+const InputControl = ({
+  type = "text",
+  value,
+  name,
+  onChange,
+  label,
+  required = false,
+}) => {
   const inlineStyles = {
     inputStyles: {
       width: "100%",
@@ -13,6 +20,7 @@ const InputControl = ({ type = "text", value, name, onChange, label }) => {
       <TextField
         sx={{ ...inlineStyles.inputStyles }}
         type={type}
+        required={required}
         // id="outlined-basic"
         label={label}
         variant="outlined"
