@@ -62,7 +62,7 @@ const Home = () => {
   };
 
   return (
-    <section id="home">
+    <>
       <div>
         {/* Using module.css */}
         <video
@@ -109,6 +109,7 @@ const Home = () => {
       </div>
 
       <div>
+<<<<<<< HEAD
         <Gallery />
         <Services />
         <Trainers />
@@ -117,8 +118,11 @@ const Home = () => {
         <CelebrityQuotes />
         <Contact />
         <Footer />
+=======
+        {/* <Pricing /> */}
+>>>>>>> 70e48c63d879aaf52b41646f14d09d5422d9e958
       </div>
-    </section>
+    </>
   );
 };
 

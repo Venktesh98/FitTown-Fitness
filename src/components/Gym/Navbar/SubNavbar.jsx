@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import React from "react";
-import Scroll from "react-scroll";
+import { Link } from "react-scroll";
 import styles from "./SubNavbar.module.css";
 
 const inlineStyles = {
-  subHeaderNavScrollLinkItems: {
+  subHeaderNavLinkItems: {
     color: "white",
     letterSpacing: "1.2px",
     display: "inline-block",
@@ -27,12 +27,9 @@ const inlineStyles = {
 };
 
 const SubNavbar = () => {
-  let ScrollLink = Scroll.Link;
-
   const handleClick = () => {
     console.log("In handle on click");
   };
-
   return (
     <div className={styles["sub-header-container"]}>
       <div className={styles["sub-header-modules"]}>
@@ -86,15 +83,15 @@ const SubNavbar = () => {
 
         <Button sx={{ ...inlineStyles.comparePlanContainer }}>
           <div className={styles["compare-plans"]}>
-            <ScrollLink
-              activeClass="active"
+            <Link
+              // activeClass="active"
               to="pricing"
               spy={true}
               smooth={true}
               duration={1500}
             >
               Compare Plans
-            </ScrollLink>
+            </Link>
           </div>
         </Button>
       </div>

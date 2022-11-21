@@ -4,9 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid yellow; */
+  border: 1px solid yellow;
   position: relative;
-  margin-top: 2%;
 }
 .price-headings {
   display: flex;
