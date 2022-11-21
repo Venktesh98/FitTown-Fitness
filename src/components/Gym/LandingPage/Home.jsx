@@ -7,8 +7,9 @@ import Services from "../Services/Services";
 import Gallery from "../Gallery/Gallery";
 import Trainers from "../Trainers/Trainers";
 import About from "../About/About";
-import Footer from "../Footer/Footer"
+import Footer from "../Footer/Footer";
 import Contact from "../ContactDetails/Contact/Contact";
+import CelebrityQuotes from "../CelebrityQuotes/CelebrityQuotes";
 
 // const VideoComponent = styled("video")({
 //   width: "100%",
@@ -113,6 +114,7 @@ const Home = () => {
         <Trainers />
         <Pricing />
         <About />
+        <CelebrityQuotes />
         <Contact />
         <Footer />
       </div>

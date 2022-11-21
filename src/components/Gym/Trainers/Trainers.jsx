@@ -5,6 +5,7 @@ const Trainers = () => {
   return (
     <section id="trainers">
       <div className={styles.heading}>Our Team</div>
+      <div className={styles.underline}></div>
       <div className={styles["trainers-listing-wrapper"]}>
         <div className={styles["trainers-listing"]}>
           <div className={styles["trainer-listing-bg"]}></div>

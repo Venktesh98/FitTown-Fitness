@@ -41,11 +41,13 @@ export const useFirebaseOperations = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
+  console.log("In useFirebase Hook");
+
   // Listening the user on page refresh i.e to persists user value
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authenticatedUser) => {
       setCurrentUser(authenticatedUser);
-      settingUpUserInitial(authenticatedUser);
+      settingUpUserInitial(authenticatedUser?.displayName);
       setIsLoading(false);
     });
     return () => {
@@ -54,8 +56,7 @@ export const useFirebaseOperations = () => {
   }, []);
 
   // For Displaying user initial on context menu
-  const settingUpUserInitial = (user) => {
-    const userDisplayName = user?.displayName;
+  const settingUpUserInitial = (userDisplayName) => {
     const getUserInitial = userDisplayName?.split("");
     if (getUserInitial !== undefined) {
       setAvatarInitial(getUserInitial[0]);
@@ -135,5 +136,6 @@ export const useFirebaseOperations = () => {
     userRegistrationResponse,
     avatarInitial,
     setAvatarInitial,
+    settingUpUserInitial,
   };
 };

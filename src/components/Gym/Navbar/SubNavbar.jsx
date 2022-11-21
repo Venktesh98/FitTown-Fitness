@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
-import Scroll from 'react-scroll';
+import Scroll from "react-scroll";
 import styles from "./SubNavbar.module.css";
 
 const inlineStyles = {
@@ -43,18 +43,8 @@ const SubNavbar = () => {
           smooth={true}
           duration={1500}
         >
-          <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>Home</Button>
-        </ScrollLink>
-
-        <ScrollLink
-          activeClass="active"
-          to="services"
-          spy={true}
-          smooth={true}
-          duration={1500}
-        >
           <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>
-            Services
+            Home
           </Button>
         </ScrollLink>
 
@@ -67,6 +57,18 @@ const SubNavbar = () => {
         >
           <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>
             Gallery
+          </Button>
+        </ScrollLink>
+
+        <ScrollLink
+          activeClass="active"
+          to="services"
+          spy={true}
+          smooth={true}
+          duration={1500}
+        >
+          <Button sx={{ ...inlineStyles.subHeaderNavScrollLinkItems }}>
+            Services
           </Button>
         </ScrollLink>
 

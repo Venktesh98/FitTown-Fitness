@@ -21,7 +21,7 @@ const styles = {
     mt: "2%",
   },
   lazyLoadImagesContainer: {
-    margin: "0.5% 1% 0 0",
+    margin: "0.5% 0.1% 0 0",
     position: "relative",
     zIndex: 1,
   },
@@ -49,8 +49,8 @@ const Gallery = () => {
           <Box key={image.id} sx={{ ...styles.lazyLoadImagesContainer }}>
             <Box sx={{ ...styles.overlay }} />
             <LazyLoadImages
-              height={410}
-              width={455}
+              height={400}
+              width={380}
               effect="opacity"
               src={image.image}
               alt={"No Image"}

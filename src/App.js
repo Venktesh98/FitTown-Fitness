@@ -70,7 +70,7 @@ function App() {
             {/* <Route path="/contact" element={<Contact />} /> */}
           </Route>
 
-          {/* <Route path="*" element={<NotFound />} /> */}
+          <Route path="*" element={<NotFound />} />
 
           {/* Native Way i.e not ideal in case we have too many routes */}
           {/* <Route

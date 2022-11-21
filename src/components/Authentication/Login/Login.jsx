@@ -13,7 +13,6 @@ import useAuth from "../../../Hooks/useAuth";
 import { useContext } from "react";
 import DialogContext from "../../../contexts/DialogContext";
 
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useToast } from "../../../Hooks/useToast";
 import {
@@ -39,6 +38,7 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
     setLoginCredential,
     loginCredential,
     currentUser,
+    settingUpUserInitial
   } = useAuth();
 
   const toastResponse = useToast();
@@ -75,6 +75,7 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
     // Logging for the first time
     else {
       const loginResponse = await loggingUser();
+      settingUpUserInitial(loginResponse.user.displayName);
       if (loginResponse) {
         toastResponse((type = "success"), (message = "Login Successfully!"));
       } else {

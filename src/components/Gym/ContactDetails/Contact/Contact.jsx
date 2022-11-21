@@ -72,6 +72,7 @@ const Contact = () => {
                       name="name"
                       onChange={handleOnChange}
                       label="Your Name"
+                      required={true}
                       //   value={values.name}
                     />
                   </Grid>
@@ -80,6 +81,7 @@ const Contact = () => {
                       name="email"
                       onChange={handleOnChange}
                       label="Your Email"
+                      required={true}
                       //   value={values.email}
                     />
                   </Grid>
