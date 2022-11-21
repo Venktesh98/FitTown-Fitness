@@ -13,11 +13,6 @@ const styles = {
 
     // border:"1px solid black"
   },
-  headingUnderline: {
-    borderBottom: "3px solid #f5634b",
-    width: "13%",
-    margin: "0 auto",
-  },
   galleryImage: {
     display: "flex",
     justifyContent: "center",
@@ -47,9 +42,8 @@ const Gallery = () => {
   const imageLists = ImageList;
 
   return (
-    <div>
+    <section id="gallery">
       <Box sx={{ ...styles.heading }}>Gallery</Box>
-      <Box sx={{ ...styles.headingUnderline }}></Box>
       <Box sx={{ ...styles.galleryImage }}>
         {imageLists?.map((image) => (
           <Box key={image.id} sx={{ ...styles.lazyLoadImagesContainer }}>
@@ -64,7 +58,7 @@ const Gallery = () => {
           </Box>
         ))}
       </Box>
-    </div>
+    </section>
   );
 };
 

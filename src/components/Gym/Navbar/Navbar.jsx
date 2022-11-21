@@ -12,7 +12,6 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import DialogContext from "../../../contexts/DialogContext";
 import { useContext } from "react";
@@ -20,8 +19,6 @@ import CustomizedDialogs from "../../UI/Dialog/DialogControl";
 import Drawer from "@mui/material/Drawer";
 import styles from "./Navbar.module.css";
 import SubNavbar from "./SubNavbar";
-import { useEffect } from "react";
-import { auth } from "../../Services/firebase";
 import { useState } from "react";
 import { useToast } from "../../../Hooks/useToast";
 import { Link, useNavigate } from "react-router-dom";
@@ -91,6 +88,8 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const toastResponse = useToast();
+
+  let ScrollLink = Scroll.Link;
 
   let type = "";
   let message = "";
@@ -236,7 +235,7 @@ const Navbar = () => {
                             onClick={handleMobileScreenMenuForRegister}
                             sx={{ ...inlineStyles.navLinkItems }}
                           >
-                            About
+                            Register
                           </Button>
                         </Link>
 
@@ -245,45 +244,37 @@ const Navbar = () => {
                             onClick={handleMobileScreenMenuForLogin}
                             sx={{ ...inlineStyles.navLinkItems }}
                           >
-                            Services
+                            Login
                           </Button>
                         </Link>
 
-                        <Link className={styles["drawer-nav-links"]}>
+                        <ScrollLink
+                          className={styles["drawer-nav-links"]}
+                          activeClass="active"
+                          to="about"
+                          spy={true}
+                          smooth={true}
+                          duration={1500}
+                        >
                           <Button
                             onClick={handleDrawerToggle}
                             sx={{ ...inlineStyles.navLinkItems }}
                           >
-                            Trainers
+                            About
                           </Button>
-                        </Link>
+                        </ScrollLink>
 
-                        <Link className={styles["drawer-nav-links"]}>
-                          <Button
-                            onClick={handleDrawerToggle}
-                            sx={{ ...inlineStyles.navLinkItems }}
-                          >
-                            Pricing
-                          </Button>
-                        </Link>
-
-                        <Link className={styles["drawer-nav-links"]}>
-                          <Button
-                            onClick={handleDrawerToggle}
-                            sx={{ ...inlineStyles.navLinkItems }}
-                          >
-                            Gallery
-                          </Button>
-                        </Link>
-
-                        <Link className={styles["drawer-nav-links"]}>
+                        <ScrollLink
+                          to="contact"
+                          className={styles["drawer-nav-links"]}
+                        >
                           <Button
                             onClick={handleDrawerToggle}
                             sx={{ ...inlineStyles.navLinkItems }}
                           >
                             Contact
                           </Button>
-                        </Link>
+                        </ScrollLink>
                       </Box>
                     </Drawer>
                   </React.Fragment>
@@ -332,15 +323,27 @@ const Navbar = () => {
                   </Button>
                 </Link>
 
-                <Link style={{ textDecoration: "none" }} to="/about">
-                  <Button sx={{ ...inlineStyles.navLinkItems }}>
-                    Services
-                  </Button>
-                </Link>
+                <ScrollLink
+                  style={{ textDecoration: "none" }}
+                  activeClass="active"
+                  to="about"
+                  spy={true}
+                  smooth={true}
+                  duration={1500}
+                >
+                  <Button sx={{ ...inlineStyles.navLinkItems }}>About</Button>
+                </ScrollLink>
 
-                <Link style={{ textDecoration: "none" }}>
+                <ScrollLink
+                  activeClass="active"
+                  to="contact"
+                  spy={true}
+                  smooth={true}
+                  duration={1500}
+                  style={{ textDecoration: "none" }}
+                >
                   <Button sx={{ ...inlineStyles.navLinkItems }}>Contact</Button>
-                </Link>
+                </ScrollLink>
               </Box>
 
               {/* Avatar and context menu*/}
