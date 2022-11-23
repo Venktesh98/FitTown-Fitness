@@ -8,6 +8,7 @@ const InputControl = ({
   onChange,
   label,
   required = false,
+  error = null,
 }) => {
   const inlineStyles = {
     inputStyles: {
@@ -27,6 +28,7 @@ const InputControl = ({
         name={name}
         value={value}
         onChange={onChange}
+        {...(error && { error: true, helperText: error })}
       />
     </div>
   );
