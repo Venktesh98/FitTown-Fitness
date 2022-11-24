@@ -68,6 +68,8 @@ export default function CustomizedDialogs() {
     resetPassword,
   } = dialogContext;
 
+  console.log("Memneber ....", memberAuth);
+
   return (
     <div>
       <BootstrapDialog
@@ -114,7 +116,7 @@ export default function CustomizedDialogs() {
             ) : resetPassword ? (
               <Collapse in={resetPassword}>
                 <ResetPassword
-                  onMemberAuth={setMemberAuth}
+                  onSetMemberAuth={setMemberAuth}
                   onToggleAnimation={resetPassword}
                 />
               </Collapse>

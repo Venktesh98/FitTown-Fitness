@@ -37,8 +37,10 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
     handleResetLoginForm,
     setLoginCredential,
     loginCredential,
+    setErrors,
+    errors,
     currentUser,
-    settingUpUserInitial
+    settingUpUserInitial,
   } = useAuth();
 
   const toastResponse = useToast();
@@ -49,6 +51,8 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
   // variables for Toast Messages
   let type = undefined;
   let message = undefined;
+
+  let validations = { ...errors };
 
   const [userSession, setUserSession] = useState(false);
 
@@ -69,24 +73,34 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
 
     // Already User Logged in and if tries again.
     if (currentUser) {
-      console.log("Alredy LoggedIn");
       toastResponse((type = "info"), (message = "You're Already LoggedIn!"));
     }
     // Logging for the first time
     else {
-      const loginResponse = await loggingUser();
-      settingUpUserInitial(loginResponse.user.displayName);
-      if (loginResponse) {
-        toastResponse((type = "success"), (message = "Login Successfully!"));
-      } else {
-        toastResponse(
-          (type = "error"),
-          (message = "Something went wrong, Please Login again")
-        );
+      try {
+        const loginResponse = await loggingUser();
+        settingUpUserInitial(loginResponse.user.displayName);
+        if (loginResponse) {
+          toastResponse((type = "success"), (message = "Login Successfully!"));
+          handleResetLoginForm();
+          setOpen(false);
+          setErrors({})
+        } else {
+          toastResponse(
+            (type = "error"),
+            (message = "Something went wrong, Please Login again")
+          );
+        }
+      } catch (error) {
+        console.log("Login Error:", error);
+        if (error.code === "auth/user-not-found") {
+          validations.loginEmail = "User not found";
+        }
+        setErrors({ ...validations });
       }
     }
-    setOpen(false);
-    handleResetLoginForm();
+    // setOpen(true);
+    // handleResetLoginForm();
   };
 
   const handleLoginUserOnChange = (event) => {
@@ -122,6 +136,7 @@ const Login = ({ onhandleMemberRegistration, onhandleResetPassword }) => {
                 name="loginEmail"
                 value={loginCredential.loginEmail}
                 onChange={handleLoginUserOnChange}
+                error={errors.loginEmail}
               />
             </Grid>
 

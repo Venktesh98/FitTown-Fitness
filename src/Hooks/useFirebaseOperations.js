@@ -29,6 +29,7 @@ export const useFirebaseOperations = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [avatarInitial, setAvatarInitial] = useState("");
+  const [errors, setErrors] = useState({});
 
   // Registration
   const [userCredentials, setUserCredentials] = useState(userInitialValues);
@@ -41,11 +42,10 @@ export const useFirebaseOperations = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  console.log("In useFirebase Hook");
-
   // Listening the user on page refresh i.e to persists user value
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authenticatedUser) => {
+      console.log("In Auth State..");
       setCurrentUser(authenticatedUser);
       settingUpUserInitial(authenticatedUser?.displayName);
       setIsLoading(false);
@@ -80,19 +80,19 @@ export const useFirebaseOperations = () => {
   // Logging the User with Email and Password
   const loggingUser = async () => {
     console.log("In Login");
-    try {
-      let response = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Login Response:", response);
+    // try {
+    let response = await signInWithEmailAndPassword(auth, email, password);
+    console.log("Login Response:", response);
 
-      if (response) {
-        navigate(state ? state?.path : "/");
-        setIsLoading(false);
-        return response;
-      }
-    } catch (error) {
-      console.log("Login Error:", error.message);
-      console.log("Login Error:", error);
+    if (response) {
+      navigate(state ? state?.path : "/");
+      setIsLoading(false);
+      return response;
     }
+    // } catch (error) {
+    // console.log("Login Error:", error.message);
+    // console.log("Global Login Error:", error);
+    // }
   };
 
   // Reset Login Form
@@ -102,6 +102,7 @@ export const useFirebaseOperations = () => {
 
   // Response of User Registration
   const userRegistrationResponse = async () => {
+    console.log("In user Register");
     let response = await createUserWithEmailAndPassword(
       auth,
       userEmail,
@@ -137,5 +138,7 @@ export const useFirebaseOperations = () => {
     avatarInitial,
     setAvatarInitial,
     settingUpUserInitial,
+    setErrors,
+    errors,
   };
 };

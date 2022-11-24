@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import { useToast } from "../../../Hooks/useToast";
+import LoadingSpinner from "../../UI/LoadingSpinner/LoadingSpinner";
 
 const ProtectedRoute = ({ children }) => {
   const { currentUser, isLoading } = useAuth();
@@ -13,7 +14,11 @@ const ProtectedRoute = ({ children }) => {
   let message = undefined;
 
   if (isLoading) {
-    return <div>Loading.....</div>;
+    return (
+      <div>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   //  if user is not authenticated

@@ -9,7 +9,7 @@ import InputControl from "../../UI/InputBox/InputControl";
 import Login from "../Login/Login";
 import styles from "./ResetPassword.module.css";
 
-const ResetPassword = ({ onMemberAuth, onToggleAnimation }) => {
+const ResetPassword = ({ onSetMemberAuth, onToggleAnimation }) => {
   const [email, setEmail] = useState("");
 
   const handleResetPasswordOnChange = (event) => {
@@ -33,8 +33,10 @@ const ResetPassword = ({ onMemberAuth, onToggleAnimation }) => {
   const handleRedirect = (event) => {
     event.preventDefault();
 
-    onMemberAuth(true);
+    onSetMemberAuth(true);
   };
+
+  
 
   return (
     <section>

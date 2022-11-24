@@ -26,9 +26,10 @@
   }
 }
 .register-redirect {
-  color: purple;
+  color: black;
   font-size: 18px;
   margin-bottom: -2%;
+  text-align: center;
 }
 .login > a {
   text-decoration: none;

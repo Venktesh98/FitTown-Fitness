@@ -2,7 +2,7 @@
   position: absolute;
   background-color: #393a3b;
   opacity: 0.8;
-  margin-top: 4.7%;
+  margin-top: 4.3%;
   padding: 0.8%;
   width: 100%;
 }
@@ -67,7 +67,7 @@
   .sub-header-container {
     overflow: hidden;
     margin-top: 4%;
-    border: 1px solid yellow;
+    /* border: 1px solid yellow; */
   }
   .sub-header-modules {
     position: absolute;
@@ -85,7 +85,7 @@
   .sub-header-container {
     overflow: hidden;
     /* margin-top: 6%; */
-    border: 1px solid orange;
+    /* border: 1px solid orange; */
   }
   .sub-header-modules {
     position: absolute;
@@ -105,7 +105,7 @@
   .sub-header-container {
     overflow: hidden;
     margin-top: 1%;
-    border: 1px solid rgb(35, 214, 104);
+    /* border: 1px solid rgb(35, 214, 104); */
   }
   .sub-header-modules {
     position: absolute;
