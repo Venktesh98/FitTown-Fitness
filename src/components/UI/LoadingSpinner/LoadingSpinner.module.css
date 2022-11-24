@@ -1,0 +1,9 @@
+.spinner-container {
+  position: relative;
+  height: 90vh;
+}
+.spinner-module {
+  position: absolute;
+  top: 45%;
+  left: 43%;
+}

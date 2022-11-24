@@ -10,6 +10,8 @@ import About from "../About/About";
 import Footer from "../Footer/Footer";
 import Contact from "../ContactDetails/Contact/Contact";
 import CelebrityQuotes from "../CelebrityQuotes/CelebrityQuotes";
+import { DialogContextProvider } from "../../../contexts/DialogContext";
+import Navbar from "../Navbar/Navbar";
 
 // const VideoComponent = styled("video")({
 //   width: "100%",
@@ -109,6 +111,10 @@ const Home = () => {
       </div>
 
       <div>
+        <DialogContextProvider>
+          <Navbar />
+        </DialogContextProvider>
+
         <Gallery />
         <Services />
         <Trainers />
