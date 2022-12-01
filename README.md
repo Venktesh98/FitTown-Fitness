@@ -1,6 +1,5 @@
 # FitTown 
-    By the name itself you can predict that its an Fitness App, The app gives you the insights 
-    of the Workouts, Meals, Your BMI and many more services.
+    By the name itself you can predict that its an Fitness App, The app gives you the insights of the Workouts, Meals, Your BMI and many more services with expertise Trainers.
 
 ### Getting Started
 
