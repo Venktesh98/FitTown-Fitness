@@ -7,7 +7,7 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/Authentication/ProtectedRoutes/ProtectedRoute";
 import { HomeLayout } from "./components/Authentication/ProtectedRoutes/HomeLayout";
 import Dashboard from "./components/Gym/Dashboard/Dashboard";
-import NotFound from "./components/Errors/NotFound"
+import NotFound from "./components/Errors/NotFound";
 import { animateScroll as scroll } from "react-scroll";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,9 +53,7 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute />}>
-            {/* will come Dashboard here */}
             <Route path="/dashboard" element={<Dashboard />} />
-            {/* <Route path="/contact" element={<Contact />} /> */}
           </Route>
 
           <Route path="*" element={<NotFound />} />
